@@ -6,8 +6,8 @@
 
 - 自动化主用例：`tests/import/test_review_checklist_import.py`
 - 公共辅助代码：`tests/support/review_checklist_import_support.py`
-- 测试夹具目录：`tests/fixtures/review_checklist_import/`
-- 历史报告归档：`docs/reports/review-checklist-import/2026-04-08/`
+- 测试夹具目录：`tests/fixtures/import/review_checklist_import/`
+- 历史报告归档：`docs/import/reports/2026-04-08/`
 - 快速执行脚本：`scripts/run_review_checklist_import.sh`
 
 ## 直接可执行的自动化覆盖

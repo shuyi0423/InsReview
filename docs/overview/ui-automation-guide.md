@@ -8,12 +8,14 @@
   自动化测试代码根目录。
 - `tests/conftest.py`
   统一为测试文件打套件标记，支持按模块运行。
-- `tests/fixtures/`
-  测试输入文件、样例数据和历史夹具。
+- `tests/fixtures/<module>/`
+  按模块管理测试输入文件、样例数据和历史夹具。
 - `scripts/`
   标准执行入口与安装脚本。
-- `docs/`
-  测试说明、迁移说明、历史报告和项目指南。
+- `docs/<module>/`
+  按模块管理测试说明、迁移说明和历史报告。
+- `docs/overview/`
+  项目级共享说明与执行指南。
 - `.auth/`
   本地登录态缓存，不进入 git。
 - `artifacts/`
@@ -87,6 +89,6 @@
 
 - 新增业务模块时，优先沿用 `tests/test_<module>.py` 命名
 - 在 `tests/conftest.py` 中补对应 suite marker
-- 测试文件和历史样例统一放入 `tests/fixtures/`
-- 模块专项说明放 `docs/`
+- 测试文件和历史样例统一放入 `tests/fixtures/<module>/`
+- 模块专项说明统一放入 `docs/<module>/`
 - 稳定高价值场景优先进入 `smoke` 或 `regression`

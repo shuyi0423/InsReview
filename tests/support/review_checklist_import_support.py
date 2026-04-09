@@ -22,7 +22,7 @@ from tests.review.test_intelligent_review_flow import (
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_FIXTURES_DIR = PROJECT_ROOT / "tests" / "fixtures" / "review_checklist_import"
+DEFAULT_FIXTURES_DIR = PROJECT_ROOT / "tests" / "fixtures" / "import" / "review_checklist_import"
 
 
 @dataclass(frozen=True)

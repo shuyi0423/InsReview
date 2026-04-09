@@ -35,7 +35,7 @@
   审查清单导入自动化主用例。
 - `tests/support/review_checklist_import_support.py`
   导入清单辅助函数、API 封装、页面操作和夹具加载。
-- `tests/fixtures/review_checklist_import/`
+- `tests/fixtures/import/review_checklist_import/`
   导入清单测试文件。
 - `scripts/run_review_checklist_import.sh`
   导入清单快捷执行脚本。
@@ -47,11 +47,11 @@
   全量执行入口。
 - `scripts/bootstrap.sh`
   依赖与浏览器安装脚本。
-- `docs/review-checklist-import-cases.md`
+- `docs/import/review-checklist-import-cases.md`
   导入清单完整迁移说明与用例矩阵。
-- `docs/ui-automation-guide.md`
+- `docs/overview/ui-automation-guide.md`
   智审平台 UI 自动化测试标准执行指南。
-- `docs/reports/review-checklist-import/2026-04-08/`
+- `docs/import/reports/2026-04-08/`
   本轮 dev 与线上历史报告归档。
 
 ## 环境依赖
