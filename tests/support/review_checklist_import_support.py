@@ -10,8 +10,8 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import APIRequestContext, APIResponse, Error, Locator, Page, Playwright
 
-from tests.test_checklist_module import get_checklist_list_url, open_checklist_module
-from tests.test_intelligent_review_flow import (
+from tests.checklist.test_checklist_module import get_checklist_list_url, open_checklist_module
+from tests.review.test_intelligent_review_flow import (
     ARTIFACTS_DIR,
     ReviewConfig,
     build_ui_launch_options,
@@ -21,7 +21,7 @@ from tests.test_intelligent_review_flow import (
 )
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_FIXTURES_DIR = PROJECT_ROOT / "tests" / "fixtures" / "review_checklist_import"
 
 

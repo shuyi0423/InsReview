@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 from playwright.sync_api import Error as PlaywrightError, Locator, Page, TimeoutError as PlaywrightTimeoutError, sync_playwright
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = PROJECT_ROOT / ".env"
 ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
 

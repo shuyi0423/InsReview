@@ -23,17 +23,17 @@
   存放所有自动化用例与公共支持代码。
 - `tests/conftest.py`
   统一测试分组标记，支持按套件运行。
-- `tests/test_feishu_login.py`
+- `tests/auth/test_feishu_login.py`
   飞书登录与登录态保存。
-- `tests/test_intelligent_review_flow.py`
+- `tests/review/test_intelligent_review_flow.py`
   智能审查主流程。
-- `tests/test_checklist_module.py`
+- `tests/checklist/test_checklist_module.py`
   审查清单模块。
-- `tests/test_review_rule_module.py`
+- `tests/rule/test_review_rule_module.py`
   审查规则模块。
-- `tests/test_review_checklist_import.py`
+- `tests/import/test_review_checklist_import.py`
   审查清单导入自动化主用例。
-- `tests/review_checklist_import_support.py`
+- `tests/support/review_checklist_import_support.py`
   导入清单辅助函数、API 封装、页面操作和夹具加载。
 - `tests/fixtures/review_checklist_import/`
   导入清单测试文件。
@@ -119,7 +119,7 @@
 直接运行导入清单 pytest：
 
 ```bash
-python3 -m pytest tests/test_review_checklist_import.py -s
+python3 -m pytest tests/import/test_review_checklist_import.py -s
 ```
 
 仅做收集校验：

@@ -11,7 +11,7 @@ import pytest
 from playwright.sync_api import Error as PlaywrightError, Locator, Page, TimeoutError as PlaywrightTimeoutError, sync_playwright
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = PROJECT_ROOT / ".env"
 ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
 RESULT_MARKERS = ("导出", "重新审查", "建议优化", "风险提示")
@@ -864,7 +864,7 @@ def should_refresh_auth(page: Page) -> bool:
 
 
 def refresh_auth_state_if_needed(page: Page, config: ReviewConfig) -> None:
-    from tests.test_feishu_login import (
+    from tests.auth.test_feishu_login import (
         get_feishu_login_page,
         handle_feishu_login,
         load_config as load_login_config,

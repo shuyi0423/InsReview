@@ -23,11 +23,11 @@
 
 | 套件名 | pytest 标记 | 对应文件 |
 | --- | --- | --- |
-| 登录 | `auth` | `tests/test_feishu_login.py` |
-| 智能审查流程 | `review_flow` | `tests/test_intelligent_review_flow.py` |
-| 审查清单 | `checklist` | `tests/test_checklist_module.py` |
-| 审查规则 | `review_rule` | `tests/test_review_rule_module.py` |
-| 导入清单 | `checklist_import` | `tests/test_review_checklist_import.py` |
+| 登录 | `auth` | `tests/auth/test_feishu_login.py` |
+| 智能审查流程 | `review_flow` | `tests/review/test_intelligent_review_flow.py` |
+| 审查清单 | `checklist` | `tests/checklist/test_checklist_module.py` |
+| 审查规则 | `review_rule` | `tests/rule/test_review_rule_module.py` |
+| 导入清单 | `checklist_import` | `tests/import/test_review_checklist_import.py` |
 | 冒烟 | `smoke` | 当前默认覆盖 `导入清单` |
 | 回归 | `regression` | 当前覆盖主业务回归套件 |
 

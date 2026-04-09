@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
-from tests.review_checklist_import_support import (
+from tests.support.review_checklist_import_support import (
     build_unique_checklist_name,
     clear_completed_review_checklist_import_tasks,
     close_authenticated_session,
@@ -23,7 +23,7 @@ from tests.review_checklist_import_support import (
     select_review_checklist_import_file,
     upload_review_checklist_file,
 )
-from tests.test_intelligent_review_flow import load_review_config
+from tests.review.test_intelligent_review_flow import load_review_config
 
 
 SUCCESS_CASES = [

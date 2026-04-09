@@ -5,7 +5,7 @@ from typing import Any
 
 from playwright.sync_api import Error as PlaywrightError, Locator, Page, sync_playwright
 
-from tests.test_checklist_module import (
+from tests.checklist.test_checklist_module import (
     RULE_CATEGORY_EDIT_TARGET_CANDIDATES,
     RULE_CATEGORY_NAME_PREFIX,
     RULE_RISK_LEVEL,
@@ -26,7 +26,7 @@ from tests.test_checklist_module import (
     wait_for_rule_category_edit_item,
     wait_for_visible_popover,
 )
-from tests.test_intelligent_review_flow import (
+from tests.review.test_intelligent_review_flow import (
     ARTIFACTS_DIR,
     build_ui_launch_options,
     create_authenticated_context,

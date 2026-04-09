@@ -6,7 +6,7 @@ from typing import Any
 
 from playwright.sync_api import Error, Locator, Page, TimeoutError as PlaywrightTimeoutError, sync_playwright
 
-from tests.test_intelligent_review_flow import (
+from tests.review.test_intelligent_review_flow import (
     ARTIFACTS_DIR,
     ReviewConfig,
     build_ui_launch_options,
