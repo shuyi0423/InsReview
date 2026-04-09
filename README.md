@@ -21,6 +21,8 @@
 
 - `tests/`
   存放所有自动化用例与公共支持代码。
+- `tests/conftest.py`
+  统一测试分组标记，支持按套件运行。
 - `tests/test_feishu_login.py`
   飞书登录与登录态保存。
 - `tests/test_intelligent_review_flow.py`
@@ -37,8 +39,18 @@
   导入清单测试文件。
 - `scripts/run_review_checklist_import.sh`
   导入清单快捷执行脚本。
+- `scripts/run_ui_suite.sh`
+  标准 UI 套件执行入口。
+- `scripts/run_ui_smoke.sh`
+  冒烟执行入口。
+- `scripts/run_ui_full.sh`
+  全量执行入口。
+- `scripts/bootstrap.sh`
+  依赖与浏览器安装脚本。
 - `docs/review-checklist-import-cases.md`
   导入清单完整迁移说明与用例矩阵。
+- `docs/ui-automation-guide.md`
+  智审平台 UI 自动化测试标准执行指南。
 - `docs/reports/review-checklist-import/2026-04-08/`
   本轮 dev 与线上历史报告归档。
 
@@ -51,8 +63,7 @@
 安装依赖：
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 -m playwright install chromium
+./scripts/bootstrap.sh
 ```
 
 ## 登录与环境配置
@@ -77,10 +88,32 @@ python3 -m playwright install chromium
 
 ## 常用命令
 
+运行标准冒烟：
+
+```bash
+./scripts/run_ui_smoke.sh
+```
+
+运行标准全量：
+
+```bash
+./scripts/run_ui_full.sh
+```
+
 运行导入清单回归：
 
 ```bash
 ./scripts/run_review_checklist_import.sh
+```
+
+按套件运行：
+
+```bash
+./scripts/run_ui_suite.sh import
+./scripts/run_ui_suite.sh checklist
+./scripts/run_ui_suite.sh review
+./scripts/run_ui_suite.sh review-rule
+./scripts/run_ui_suite.sh regression
 ```
 
 直接运行导入清单 pytest：
@@ -92,7 +125,7 @@ python3 -m pytest tests/test_review_checklist_import.py -s
 仅做收集校验：
 
 ```bash
-python3 -m pytest --collect-only tests/test_review_checklist_import.py -q
+./scripts/run_ui_suite.sh collect
 ```
 
 ## 导入清单迁移内容
