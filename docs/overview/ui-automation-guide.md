@@ -16,6 +16,8 @@
   按模块管理测试说明、迁移说明和历史报告。
 - `docs/overview/`
   项目级共享说明与执行指南。
+- `env/`
+  按环境管理 dev / online profile。
 - `.auth/`
   本地登录态缓存，不进入 git。
 - `artifacts/`
@@ -38,8 +40,14 @@
 统一入口：
 
 ```bash
-./scripts/run_ui_suite.sh <suite>
+./scripts/run_ui_suite.sh [profile] <suite>
 ```
+
+可用 profile：
+
+- `local`
+- `dev`
+- `online`
 
 可用值：
 
@@ -65,25 +73,42 @@
 
 ```bash
 ./scripts/run_ui_suite.sh import
+./scripts/run_ui_suite.sh dev import
+./scripts/run_ui_suite.sh online import
 ```
 
 执行冒烟：
 
 ```bash
 ./scripts/run_ui_smoke.sh
+./scripts/run_ui_smoke.sh dev
+./scripts/run_ui_smoke.sh online
 ```
 
 执行全量：
 
 ```bash
 ./scripts/run_ui_full.sh
+./scripts/run_ui_full.sh dev
+./scripts/run_ui_full.sh online
 ```
 
 仅收集不执行：
 
 ```bash
 ./scripts/run_ui_suite.sh collect
+./scripts/run_ui_suite.sh dev collect
 ```
+
+## 环境配置约定
+
+- `.env`
+  保存共享基础配置。
+- `env/dev.env`
+  保存开发环境专属地址与登录态路径。
+- `env/online.env`
+  保存线上环境专属地址与登录态路径。
+- 脚本加载 profile 后，测试代码再读取 `.env` 补齐未覆盖的共享项。
 
 ## 后续扩展建议
 

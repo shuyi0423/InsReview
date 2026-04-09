@@ -74,12 +74,14 @@
 
 ## 运行方式
 
-1. 确保 `.env` 里已有可用登录配置，且 `.auth/feishu-login-state.json` 有效。
+1. 准备共享 `.env`，并确保对应 profile 的登录态文件有效。
 2. 首次运行若 Playwright 浏览器未安装，执行 `python3 -m playwright install chromium`。
 3. 运行单套导入回归：
 
 ```bash
 ./scripts/run_review_checklist_import.sh
+./scripts/run_review_checklist_import.sh dev
+./scripts/run_review_checklist_import.sh online
 ```
 
 也可以直接运行：
@@ -90,7 +92,9 @@ python3 -m pytest tests/import/test_review_checklist_import.py -s
 
 ## 环境变量补充
 
-默认会复用项目现有的 `APP_LOGIN_URL` 与 `AUTH_STORAGE_STATE_PATH`。如果后续你想切换环境或接口地址，可以在 `.env` 中增加这些可选项：
+项目现在支持通过 `env/dev.env` 与 `env/online.env` 切换环境。默认会复用共享 `.env` 中的公共参数；如果 profile 中覆盖了 `APP_LOGIN_URL`、`AUTH_STORAGE_STATE_PATH`、导入页地址或 API 地址，则会优先生效。
+
+导入清单回归重点相关变量如下：
 
 - `REVIEW_CHECKLIST_PAGE_URL`
 - `REVIEW_CHECKLIST_API_BASE_URL`

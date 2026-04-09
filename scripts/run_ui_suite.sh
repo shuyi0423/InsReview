@@ -13,7 +13,12 @@ fi
 usage() {
   cat <<'EOF'
 Usage:
-  ./scripts/run_ui_suite.sh <suite> [extra pytest args...]
+  ./scripts/run_ui_suite.sh [profile] <suite> [extra pytest args...]
+
+Supported profiles:
+  local          Do not load an env profile file
+  dev            Load env/dev.env
+  online         Load env/online.env
 
 Supported suites:
   all            Run all UI tests
@@ -28,6 +33,30 @@ Supported suites:
 EOF
 }
 
+load_profile_env() {
+  local profile="$1"
+  local env_file="${PROJECT_ROOT}/env/${profile}.env"
+  if [[ ! -f "${env_file}" ]]; then
+    echo "Missing env profile file: ${env_file}" >&2
+    exit 1
+  fi
+
+  set -a
+  # shellcheck disable=SC1090
+  source "${env_file}"
+  set +a
+}
+
+PROFILE="local"
+if [[ $# -gt 0 ]]; then
+  case "$1" in
+    local|dev|online)
+      PROFILE="$1"
+      shift
+      ;;
+  esac
+fi
+
 if [[ $# -eq 0 ]]; then
   SUITE="all"
 else
@@ -36,6 +65,12 @@ else
 fi
 
 cd "${PROJECT_ROOT}"
+
+if [[ "${PROFILE}" != "local" ]]; then
+  load_profile_env "${PROFILE}"
+fi
+
+export INSREVIEW_ENV_PROFILE="${PROFILE}"
 
 case "${SUITE}" in
   all)

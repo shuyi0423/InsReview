@@ -132,7 +132,7 @@ def load_review_config() -> ReviewConfig:
         raise AssertionError("EXPECTED_REVIEW_STANCES 不能为空。")
 
     return ReviewConfig(
-        home_url=os.environ["APP_LOGIN_URL"].replace("/login", "/home"),
+        home_url=os.getenv("HOME_URL", os.environ["APP_LOGIN_URL"].replace("/login", "/home")),
         auth_storage_state_path=auth_storage_state_path,
         review_file_path=review_file_path,
         browser_name=os.getenv("PLAYWRIGHT_BROWSER", "chromium"),

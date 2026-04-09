@@ -47,6 +47,8 @@
   全量执行入口。
 - `scripts/bootstrap.sh`
   依赖与浏览器安装脚本。
+- `env/`
+  标准环境 profile，支持 dev / online 切换。
 - `docs/import/review-checklist-import-cases.md`
   导入清单完整迁移说明与用例矩阵。
 - `docs/overview/ui-automation-guide.md`
@@ -68,13 +70,19 @@
 
 ## 登录与环境配置
 
-项目默认通过 `.env` 和 `.auth/feishu-login-state.json` 复用登录态。
+项目现在支持“基础 `.env` + 环境 profile 覆盖”。
 
 推荐流程：
 
-1. 参考 `.env.example` 补齐 `.env`
-2. 确认 `.auth/feishu-login-state.json` 可用
-3. 再执行业务用例
+1. 参考 `.env.example` 补齐共享 `.env`
+2. 使用 `env/dev.env` 或 `env/online.env`
+3. 准备对应环境的登录态文件
+4. 再执行业务用例
+
+当前已提供：
+
+- `env/dev.env`
+- `env/online.env`
 
 当前 `.env.example` 已预留导入清单回归相关可选项：
 
@@ -92,24 +100,32 @@
 
 ```bash
 ./scripts/run_ui_smoke.sh
+./scripts/run_ui_smoke.sh dev
+./scripts/run_ui_smoke.sh online
 ```
 
 运行标准全量：
 
 ```bash
 ./scripts/run_ui_full.sh
+./scripts/run_ui_full.sh dev
+./scripts/run_ui_full.sh online
 ```
 
 运行导入清单回归：
 
 ```bash
 ./scripts/run_review_checklist_import.sh
+./scripts/run_review_checklist_import.sh dev
+./scripts/run_review_checklist_import.sh online
 ```
 
 按套件运行：
 
 ```bash
 ./scripts/run_ui_suite.sh import
+./scripts/run_ui_suite.sh dev import
+./scripts/run_ui_suite.sh online import
 ./scripts/run_ui_suite.sh checklist
 ./scripts/run_ui_suite.sh review
 ./scripts/run_ui_suite.sh review-rule
