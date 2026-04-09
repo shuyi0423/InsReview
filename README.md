@@ -1,4 +1,4 @@
-# 智审平台 UI 自动化测试
+# InsReview | 智审平台 UI 自动化测试
 
 `InsReview` 现在作为“智审平台 UI 自动化测试”项目维护，基于 Python、pytest 和 Playwright，负责承载智审平台核心业务页面与主流程的 UI 自动化回归。
 
