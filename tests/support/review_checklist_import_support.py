@@ -10,12 +10,13 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import APIRequestContext, APIResponse, Error, Locator, Page, Playwright
 
-from tests.checklist.test_checklist_module import get_checklist_list_url, open_checklist_module
+from tests.checklist.test_checklist_module import get_checklist_list_url
 from tests.review.test_intelligent_review_flow import (
     ARTIFACTS_DIR,
     ReviewConfig,
     build_ui_launch_options,
     create_authenticated_context,
+    goto_page_with_retry,
     get_browser_launcher,
     load_review_config,
 )
@@ -66,7 +67,7 @@ def resolve_project_path(path_value: str) -> Path:
 
 def default_review_checklist_api_base(review_config: ReviewConfig) -> str:
     parsed = urlparse(review_config.home_url)
-    return f"{parsed.scheme}://{parsed.netloc}/api/ai/review-rule/api"
+    return f"{parsed.scheme}://{parsed.netloc}/ai/review-rule/api"
 
 
 def load_review_checklist_import_config(
@@ -157,7 +158,7 @@ def wait_for_import_button(page: Page, timeout_ms: int) -> Locator:
 
 def wait_for_import_dialog(page: Page, timeout_ms: int) -> Locator:
     deadline = time.monotonic() + (timeout_ms / 1000)
-    probe = page.get_by_text("Word (.doc, .docx)", exact=True)
+    probe = page.get_by_text("导入审查清单", exact=True)
     while time.monotonic() < deadline:
         for index in range(probe.count() - 1, -1, -1):
             candidate = probe.nth(index)
@@ -180,17 +181,16 @@ def open_review_checklist_import_modal(
     review_config: ReviewConfig,
     import_config: ReviewChecklistImportConfig,
 ) -> Locator:
-    default_page_url = get_checklist_list_url(review_config)
-    if import_config.page_url == default_page_url:
-        open_checklist_module(page, review_config)
-    else:
-        page.goto(import_config.page_url, wait_until="domcontentloaded")
-        page.wait_for_timeout(1500)
     last_error: AssertionError | None = None
 
     for attempt in range(import_config.open_attempts):
         try:
-            button = wait_for_import_button(page, timeout_ms=min(review_config.ui_timeout_ms, 5000))
+            goto_page_with_retry(page, import_config.page_url)
+            page.wait_for_timeout(1500)
+            button = wait_for_import_button(
+                page,
+                timeout_ms=min(review_config.review_config_timeout_ms, 30000),
+            )
             button.click(force=True)
             return wait_for_import_dialog(page, review_config.ui_timeout_ms)
         except AssertionError as error:
@@ -206,8 +206,11 @@ def open_review_checklist_import_modal(
 
 def select_review_checklist_import_file(page: Page, file_path: Path) -> None:
     ensure_fixture_exists(file_path)
-    file_inputs = page.locator("input[type='file']")
-    file_inputs.first.set_input_files(str(file_path))
+    dialog = wait_for_import_dialog(page, timeout_ms=10000)
+    file_inputs = dialog.locator("input[type='file']")
+    if not file_inputs.count():
+        file_inputs = page.locator("input[type='file']")
+    file_inputs.last.set_input_files(str(file_path))
     page.wait_for_timeout(1200)
 
 

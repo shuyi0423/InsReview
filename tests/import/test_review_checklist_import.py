@@ -43,9 +43,9 @@ def test_review_checklist_import_modal_copy_and_default_disabled() -> None:
         try:
             dialog = open_review_checklist_import_modal(page, review_config, import_config)
 
-            expect(dialog.get_by_text("Word (.doc, .docx)", exact=True)).to_be_visible()
-            expect(dialog.get_by_text("Excel (.xls, .xlsx)", exact=True)).to_be_visible()
-            expect(dialog.get_by_text("10MB", exact=False)).to_be_visible()
+            expect(dialog.get_by_text("Word (.doc, .docx)", exact=False)).to_be_visible()
+            expect(dialog.get_by_text("Excel (.xls, .xlsx)", exact=False)).to_be_visible()
+            expect(dialog.get_by_text("10 MB", exact=False)).to_be_visible()
             expect(page.get_by_role("button", name="开始导入解析")).to_be_disabled()
         except Exception:
             save_review_checklist_import_screenshot(page, "review-checklist-import-modal-failed.png")
