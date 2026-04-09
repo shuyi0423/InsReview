@@ -1,0 +1,147 @@
+{
+  "runAt": "2026-04-08T13:56:26.528Z",
+  "baseUrl": "https://contract.qfei.cn",
+  "mode": "online-smoke-no-save",
+  "notes": [
+    "线上回归按最小影响原则执行，不进行最终保存落库。",
+    "真实解析任务在验证后调用 dismiss 接口从任务中心清理。"
+  ],
+  "raw": {
+    "entry": {
+      "hasImport": true,
+      "hasTaskCenter": true,
+      "bodySnippet": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n暂无数据",
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_entry_20260408.png"
+    },
+    "noFile": {
+      "hasImport": true,
+      "hasTaskCenter": true,
+      "startDisabledBeforeSelect": true,
+      "bodySnippet": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n暂无数据\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\n将文件拖拽至此区域或 \n选择文件上传\n支持格式：Word、Excel 大小不超过 10 MB\n取 消\n开始导入解析",
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_no_file_20260408.png"
+    },
+    "invalidType": {
+      "file": "qa_invalid_type_20260408_153608.txt",
+      "startDisabledBeforeSelect": true,
+      "startEnabledAfterSelect": false,
+      "bodySnippet": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:36\n\t\n编辑\n复制\n删除\n\n\n\t晶泰\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-19 14:29:22\n\t\n编辑\n复制\n删除\n\n\n\t222\t\n李倩\n\t\n李倩\n\t\n\t\n2026-03-18 15:33:58\n\t\n编辑\n复制\n删除\n\n\n\t测试-003\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 20:18:33\n\t\n编辑\n复制\n删除\n\n\n\t测试--001\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:18\n\t\n编辑\n复制\n删除\n\n\n\t测试-002\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:16\n\t\n编辑\n复制\n删除\n\n\n\t云智慧\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-17 11:55:44\n\t\n编辑\n复制\n删除\n\n\n\t默认审查清单\t\n\t\n\t\n\t\n2026-03-16 21:00:40\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case4\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:03\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case5\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:01\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case10\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:59\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case9\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:57\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case8\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:54\n\t\n编辑\n复制\n删除\n共 46 条\n1\n2\n3\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\n将文件拖拽至此区域或 \n选择文件上传\n支持格式：Word、Excel 大小不超过 10 MB\n仅支持上传 Word（.doc/.docx）或 Excel（.xls/.xlsx）文件\n取 消\n开始导入解析",
+      "uploadStatus": null,
+      "uploadJson": null,
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_invalid_type_20260408.png"
+    },
+    "oversize": {
+      "file": "qa_oversize_20260408_153608.docx",
+      "startDisabledBeforeSelect": true,
+      "startEnabledAfterSelect": false,
+      "bodySnippet": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:36\n\t\n编辑\n复制\n删除\n\n\n\t晶泰\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-19 14:29:22\n\t\n编辑\n复制\n删除\n\n\n\t222\t\n李倩\n\t\n李倩\n\t\n\t\n2026-03-18 15:33:58\n\t\n编辑\n复制\n删除\n\n\n\t测试-003\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 20:18:33\n\t\n编辑\n复制\n删除\n\n\n\t测试--001\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:18\n\t\n编辑\n复制\n删除\n\n\n\t测试-002\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:16\n\t\n编辑\n复制\n删除\n\n\n\t云智慧\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-17 11:55:44\n\t\n编辑\n复制\n删除\n\n\n\t默认审查清单\t\n\t\n\t\n\t\n2026-03-16 21:00:40\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case4\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:03\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case5\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:01\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case10\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:59\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case9\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:57\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case8\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:54\n\t\n编辑\n复制\n删除\n共 46 条\n1\n2\n3\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\n将文件拖拽至此区域或 \n选择文件上传\n支持格式：Word、Excel 大小不超过 10 MB\n文件大小不能超过 10MB\n取 消\n开始导入解析",
+      "uploadStatus": null,
+      "uploadJson": null,
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_oversize_20260408.png"
+    },
+    "wordParse": {
+      "label": "word",
+      "file": "online_word_20260408_215845.docx",
+      "taskId": "1120522496202768457",
+      "modalText": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:36\n\t\n编辑\n复制\n删除\n\n\n\t晶泰\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-19 14:29:22\n\t\n编辑\n复制\n删除\n\n\n\t222\t\n李倩\n\t\n李倩\n\t\n\t\n2026-03-18 15:33:58\n\t\n编辑\n复制\n删除\n\n\n\t测试-003\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 20:18:33\n\t\n编辑\n复制\n删除\n\n\n\t测试--001\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:18\n\t\n编辑\n复制\n删除\n\n\n\t测试-002\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:16\n\t\n编辑\n复制\n删除\n\n\n\t云智慧\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-17 11:55:44\n\t\n编辑\n复制\n删除\n\n\n\t默认审查清单\t\n\t\n\t\n\t\n2026-03-16 21:00:40\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case4\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:03\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case5\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:01\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case10\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:59\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case9\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:57\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case8\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:54\n\t\n编辑\n复制\n删除\n共 46 条\n1\n2\n3\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\nonline_word_20260408_215845.docx\n36.8 KB\n取 消\n开始导入解析",
+      "startEnabled": true,
+      "stableStatus": "DRAFT_READY",
+      "taskVisibleInCenter": false,
+      "openedDraft": true,
+      "draft": {
+        "defaultName": "online_word_20260408_215845",
+        "deleteCount": 8,
+        "hasRuleDetails": false,
+        "hasRiskTag": true,
+        "bodySnippet": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:36\n\t\n编辑\n复制\n删除\n\n\n\t晶泰\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-19 14:29:22\n\t\n编辑\n复制\n删除\n\n\n\t222\t\n李倩\n\t\n李倩\n\t\n\t\n2026-03-18 15:33:58\n\t\n编辑\n复制\n删除\n\n\n\t测试-003\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 20:18:33\n\t\n编辑\n复制\n删除\n\n\n\t测试--001\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:18\n\t\n编辑\n复制\n删除\n\n\n\t测试-002\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-17 15:07:16\n\t\n编辑\n复制\n删除\n\n\n\t云智慧\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-17 11:55:44\n\t\n编辑\n复制\n删除\n\n\n\t默认审查清单\t\n\t\n\t\n\t\n2026-03-16 21:00:40\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case4\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:03\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case5\t\n王丁\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:04:01\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case10\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:59\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case9\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:57\n\t\n编辑\n复制\n删除\n\n\n\t审查ISV测评规则_case8\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-12 18:03:54\n\t\n编辑\n复制\n删除\n共 46 条\n1\n2\n3\n导入审查清单\n审查清单名称\n保 存\n*审查规则\n审查规则\n补充规则\n添加规则\n致命风险\n主体信息完整性与一致性审查\n删除\n重大风险\n预付款比例与尾款支付审查\n删除\n重大风险\n交付验收要素审查\n删除\n致命风险\n违约责任明确性审查\n删除\n重大风险\n争议解决方式与地点审查\n删除\n致命风险\n保密及知识产权归属条款审查\n删除\n重大风险\n跨境交付相关内容审查\n删除\n重大风险\n重点内容审查\n删除\n规则详情\n暂无数据"
+      },
+      "dismissResponse": {
+        "status": 200,
+        "body": "{\n  \"code\" : 200,\n  \"msg\" : \"操作成功\",\n  \"data\" : true,\n  \"success\" : true,\n  \"alertType\" : null\n}"
+      },
+      "cleanedFromCenter": true,
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_word_draft_20260408.png",
+      "inputFile": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/input_files/online_word_20260408_215845.docx"
+    },
+    "excelParse": {
+      "label": "excel",
+      "file": "online_excel_20260408_220021.xlsx",
+      "taskId": "1120522810205143113",
+      "modalText": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\nonline_excel_20260408_220021.xlsx\n6.32 KB\n取 消\n开始导入解析",
+      "startEnabled": true,
+      "stableStatus": "DRAFT_READY",
+      "taskVisibleInCenter": false,
+      "openedDraft": false,
+      "draft": null,
+      "dismissResponse": {
+        "status": 200,
+        "body": "{\n  \"code\" : 200,\n  \"msg\" : \"操作成功\",\n  \"data\" : true,\n  \"success\" : true,\n  \"alertType\" : null\n}"
+      },
+      "cleanedFromCenter": true,
+      "screenshot": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_excel_draft_20260408.png",
+      "inputFile": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/input_files/online_excel_20260408_220021.xlsx"
+    }
+  },
+  "cases": [
+    {
+      "id": "ONL-001",
+      "scenario": "线上审查清单入口可用",
+      "status": "通过",
+      "actual": "线上审查清单页面可正常展示“导入清单”和“任务中心”入口。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_entry_20260408.png",
+      "remark": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n暂无数据"
+    },
+    {
+      "id": "ONL-002",
+      "scenario": "未选择文件时按钮禁用",
+      "status": "通过",
+      "actual": "未选择文件时，“开始导入解析”保持禁用。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_no_file_20260408.png",
+      "remark": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n暂无数据\n导入审查清单\n支持导入 Word (.doc, .docx)、Excel (.xls, .xlsx) 格式的非结构化文档。AI 将自动解析文件内容，提取审查点、生成规则组并标注风险等级。\n将文件拖拽至此区域或 \n选择文件上传\n支持格式：Word、Excel 大小不超过 10 MB\n取 消\n开始导入解析"
+    },
+    {
+      "id": "ONL-003",
+      "scenario": "非法类型拦截",
+      "status": "通过",
+      "actual": "txt 非法类型被拦截，未放开开始导入。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_invalid_type_20260408.png",
+      "remark": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除..."
+    },
+    {
+      "id": "ONL-004",
+      "scenario": "超大小文件拦截",
+      "status": "通过",
+      "actual": "超大小文件被前端拦截，未放开开始导入。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_oversize_20260408.png",
+      "remark": "审查清单\n请选择创建人\n请输入更新人\n请选择状态\n重 置\n查 询\n批量删除\n任务中心\n导入清单\n新建清单\n\t审查清单名称\t创建人\t更新人\t状态\t更新时间\t操作\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\t\n \n\n\n\t错误码应该是400\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:44:24\n\t\n编辑\n复制\n删除\n\n\n\tA租户采购合同审查清单\t\n李倩\n\t\n李倩\n\t\n\t\n2026-04-08 21:40:13\n\t\n编辑\n复制\n删除\n\n\n\t测试清单ZZ\t\n周正\n\t\n周正\n\t\n\t\n2026-04-02 16:35:25\n\t\n编辑\n复制\n删除\n\n\n\txptest\t\n李晓鹏\n\t\n李晓鹏\n\t\n\t\n2026-03-26 16:04:56\n\t\n编辑\n复制\n删除\n\n\n\t采购合同\t\n黎婕\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:45:26\n\t\n编辑\n复制\n删除\n\n\n\t采购合同最新\t\n袁桂英\n\t\n袁桂英\n\t\n\t\n2026-03-25 20:44:32\n\t\n编辑\n复制\n删除\n\n\n\t3.25-2__复制\t\n王舒译\n\t\n王舒译\n\t\n\t\n2026-03-25 20:22:47\n\t\n编辑\n复制\n删除..."
+    },
+    {
+      "id": "ONL-005",
+      "scenario": "Word 文件解析到草稿页",
+      "status": "通过",
+      "actual": "online_word_20260408_215845.docx 成功创建任务 1120522496202768457，解析到 DRAFT_READY，草稿页可打开，验证后已从任务中心清理。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_word_draft_20260408.png",
+      "remark": "草稿页默认名称回填正常，规则标签已生成；本轮截图中详情面板未主动切换到具体规则，不作为失败判定。"
+    },
+    {
+      "id": "ONL-006",
+      "scenario": "Excel 文件解析到草稿页",
+      "status": "通过",
+      "actual": "online_excel_20260408_220021.xlsx 成功创建任务 1120522810205143113，解析到 DRAFT_READY，验证后已从任务中心清理。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_excel_draft_20260408.png",
+      "remark": "本轮最小影响冒烟重点验证了解析链路与清理动作；Excel 任务已稳定到 DRAFT_READY，但未继续执行最终保存落库。"
+    },
+    {
+      "id": "ONL-007",
+      "scenario": "任务中心清理本轮测试任务",
+      "status": "通过",
+      "actual": "Word/Excel 两条线上测试任务验证后均已从任务中心清理。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/online_smoke_20260408/online_word_draft_20260408.png",
+      "remark": "{\n  \"word\": {\n    \"taskId\": \"1120522496202768457\",\n    \"cleaned\": true,\n    \"dismiss\": {\n      \"status\": 200,\n      \"body\": \"{\\n  \\\"code\\\" : 200,\\n  \\\"msg\\\" : \\\"操作成功\\\",\\n  \\\"data\\\" : true,\\n  \\\"success\\\" : true,\\n  \\\"alertType\\\" : null\\n}\"\n    }\n  },\n  \"excel\": {\n    \"taskId\": \"1120522810205143113\",\n    \"cleaned\": true,\n    \"dismiss\": {\n      \"status\": 200,\n      \"body\": \"{\\n  \\\"code\\\" : 200,\\n  \\\"msg\\\" : \\\"操作成功\\\",\\n  \\\"data\\\" : true,\\n  \\\"success\\\" : true,\\n  \\\"alertType\\\" : null\\n}\"\n    }\n  }\n}"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-04-08T19:17:56.722245",
+  "pageUrl": "https://dev-contract.qtech.cn/admin/review-rules/check-list",
+  "notes": [
+    "当前页面文件大小限制文案为 10MB，不再是历史 50MB。",
+    "IM-022、IM-023、IM-027、IM-029 已补测完成；IM-028 因缺少无权限账号而阻塞。"
+  ],
+  "cases": {
+    "IM-001": {
+      "status": "通过",
+      "actual": "导入弹窗正常展示支持格式说明、当前 10MB 大小限制和“取消/开始导入解析”按钮。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/invalid_type_structured_20260408.png",
+      "remark": "当前页面文案已变更为 10MB。"
+    },
+    "IM-002": {
+      "status": "通过",
+      "actual": "未选择文件时“开始导入解析”按钮保持禁用。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/invalid_type_structured_20260408.png",
+      "remark": ""
+    },
+    "IM-003": {
+      "status": "通过",
+      "actual": "docx 文件可正常上传、创建任务并进入草稿页，最终形成 8 条规则草稿。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/word_flow_20260408_draft.png",
+      "remark": "任务明细：taskId=1120463282864390254。"
+    },
+    "IM-004": {
+      "status": "通过",
+      "actual": "xlsx 文件可正常上传、创建任务并进入草稿页，最终形成 8 条规则草稿。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/excel_flow_20260408_draft.png",
+      "remark": "任务明细：taskId=1120463550653923438。"
+    },
+    "IM-005": {
+      "status": "通过",
+      "actual": "txt 文件被前端即时拦截，提示“仅支持上传 Word（.doc/.docx）或 Excel（.xls/.xlsx）文件”，未创建任务。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/invalid_type_structured_20260408.png",
+      "remark": ""
+    },
+    "IM-006": {
+      "status": "通过",
+      "actual": "超大 docx 文件被前端拦截，提示“文件大小不能超过 10MB”，未创建任务。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/oversize_structured_20260408.png",
+      "remark": "当前页面实际限制已从历史 50MB 变更为 10MB。"
+    },
+    "IM-007": {
+      "status": "通过",
+      "actual": "精确 10MB 边界文件可上传、按钮可用，并成功创建任务 1120469369839681658，最终进入 DRAFT_READY。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/boundary_10mb_20260408_draft.png",
+      "remark": "本轮已按当前页面 10MB 规则重建边界文件并补测。"
+    },
+    "IM-008": {
+      "status": "通过",
+      "actual": "旧版 .doc 文件可正常解析并保存，任务状态 COMPLETED，草稿规则数为 1。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/old_word_flow_20260408_saved.png",
+      "remark": "taskId=1120463952732487790，finalChecklistId=1120464005723324542。"
+    },
+    "IM-009": {
+      "status": "通过",
+      "actual": "旧版 .xls 文件可正常解析并保存，任务状态 COMPLETED，草稿规则数为 2。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/old_excel_flow_20260408_saved.png",
+      "remark": "taskId=1120464303338553470，finalChecklistId=1120464356190978158。"
+    },
+    "IM-010": {
+      "status": "通过",
+      "actual": "重复上传同名 docx 后成功生成新任务 1120466817207238778，并进入 DRAFT_READY。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/duplicate_rerun_20260408_draft.png",
+      "remark": ""
+    },
+    "IM-011": {
+      "status": "通过",
+      "actual": "特殊命名文件草稿页默认回填名称为“QA 特殊 文件名 @审查清单 20260408_160156”，最终可保存为正式清单。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/special_rerun_20260408_saved.png",
+      "remark": ""
+    },
+    "IM-012": {
+      "status": "通过",
+      "actual": "Word 导入任务由 PARSING 进入 DRAFT_READY，并在保存后回写为 COMPLETED。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/word_flow_20260408_draft.png",
+      "remark": "草稿规则数=8。"
+    },
+    "IM-013": {
+      "status": "通过",
+      "actual": "Excel 导入任务由 PARSING 进入 DRAFT_READY，并在保存后回写为 COMPLETED。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/excel_flow_20260408_draft.png",
+      "remark": "草稿规则数=8。"
+    },
+    "IM-014": {
+      "status": "通过",
+      "actual": "空白 Word 与空白 Excel 均快速进入 FAILED，错误信息一致：未提取到有效审查点，请重新上传与合同审查相关的文件。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/remainder-results_20260408.json",
+      "remark": "验证点为任务不挂起且失败原因明确。"
+    },
+    "IM-015": {
+      "status": "通过",
+      "actual": "扫描件导入进入 FAILED，错误信息为：未提取到有效审查点，请重新上传与合同审查相关的文件。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/remainder-results_20260408.json",
+      "remark": "验证点为任务不挂起且失败原因明确。"
+    },
+    "IM-016": {
+      "status": "通过",
+      "actual": "任务中心可展示文件名、创建时间、解析失败/待确认保存/已完成状态，以及“去保存”操作按钮。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/task_center_rerun_20260408.png",
+      "remark": ""
+    },
+    "IM-017": {
+      "status": "通过",
+      "actual": "点击“清除已完成”后，终态任务从任务中心移除，待确认保存任务保留。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/task_center_after_clear_20260408.png",
+      "remark": "实测被清理的是已完成与解析失败等终态任务，待确认保存任务保留。"
+    },
+    "IM-018": {
+      "status": "通过",
+      "actual": "Word、Excel、DOC、XLS、特殊命名文件的草稿页名称均自动回填为原文件名去后缀。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/special_rerun_20260408_draft.png",
+      "remark": ""
+    },
+    "IM-019": {
+      "status": "通过",
+      "actual": "草稿页可展示规则名称、审查逻辑、风险等级与风险说明；本轮样本规则数分别为 Word=8、Excel=8、DOC=1、XLS=2、特殊命名=3、10MB边界=1。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/word_flow_20260408_draft.png",
+      "remark": ""
+    },
+    "IM-020": {
+      "status": "通过",
+      "actual": "Word、Excel、DOC、XLS、特殊命名与刷新恢复场景均可在不修改规则内容的情况下直接保存为正式清单。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/special_rerun_20260408_saved.png",
+      "remark": ""
+    },
+    "IM-021": {
+      "status": "通过",
+      "actual": "清空清单名称点击保存时，被前端拦截并提示“请输入审查清单名称”。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/special_rerun_20260408_draft.png",
+      "remark": ""
+    },
+    "IM-024": {
+      "status": "通过",
+      "actual": "保存后列表可见新增清单：qa_valid_word_checklist_20260408_153608(2)、qa_valid_excel_checklist_20260408_153608(2)、qa_valid_old_word_20260408、qa_valid_old_excel_20260408、QA 特殊 文件名 @审查清单 20260408_160156。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/task_center_rerun_20260408.png",
+      "remark": ""
+    },
+    "IM-025": {
+      "status": "通过",
+      "actual": "保存后任务状态均回写为 COMPLETED，并生成 finalChecklistId：Word=1120463467950637166，Excel=1120463716047913086，DOC=1120464005723324542，XLS=1120464356190978158，特殊命名=1120467189715959930。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/remainder-results_20260408.json",
+      "remark": ""
+    },
+    "IM-026": {
+      "status": "通过",
+      "actual": "解析中刷新页面后，任务未丢失，重新进入草稿页并最终保存成功，任务状态 COMPLETED，finalChecklistId=1120465042924372078。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/refresh_rerun_20260408_saved.png",
+      "remark": ""
+    },
+    "IM-030": {
+      "status": "通过",
+      "actual": "连续导入三份批量样本后，任务状态依次为：batch1=DRAFT_READY、batch2=DRAFT_READY、batch3=DRAFT_READY。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/batch3_rerun_20260408_draft.png",
+      "remark": "三条任务均进入待确认保存，无串任务现象。"
+    },
+    "IM-022": {
+      "status": "通过",
+      "actual": "删除全部规则后保存会被接口明确拦截，返回 400：Finalize import task ruleRefs must not be empty。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/case022-empty-rulerefs-api.json",
+      "remark": "验证任务：1120465244326461550、1120467176998830202。任务中心“去保存”卡片点击路径偶发不稳定，因此本条以真实草稿任务的 finalize 回包作为最终判定依据。"
+    },
+    "IM-023": {
+      "status": "通过",
+      "actual": "从规则库选择规则并保存成功，finalize 返回 200，taskId=1120469369839681658。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/case023-add-rule-save.json",
+      "remark": "分类=销售类合同审核规则。本次脚本记录到的规则数变化为 1->1，已完成保存链路验证，但补充规则计数仍建议结合页面截图复核。受控复验记录：deleteCount=1->1，finalize=未捕获回包。"
+    },
+    "IM-027": {
+      "status": "通过",
+      "actual": "创建导入任务后人为断网再恢复，任务 1120476681908256878 恢复后仍可在任务中心识别，状态判定为 FILE_VISIBLE。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/case027-network-recovery.json",
+      "remark": "恢复联网后刷新页面，任务未丢失，也未形成脏任务。"
+    },
+    "IM-028": {
+      "status": "阻塞",
+      "actual": "当前环境仅提供一份已授权登录态，未提供无导入权限账号或可切换权限的测试条件，无法完成真实无权限验证。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/manual-login-snapshot.json",
+      "remark": "已检查本地会话与测试目录，未发现第二套可复用登录态。"
+    },
+    "IM-029": {
+      "status": "通过",
+      "actual": "Chrome 主流程之外，Playwright WebKit 与 Firefox 均可正常加载页面并打开“导入清单”弹窗。",
+      "evidence": "/Users/shuyi/AIcodinghackathon/qa_artifacts/case029-webkit-smoke.json",
+      "remark": "webkit.modalOpened=True，firefox.modalOpened=True。"
+    }
+  }
+}
