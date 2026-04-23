@@ -1,0 +1,82 @@
+{
+  "summary": {
+    "environment": "test",
+    "date": "2026-04-23",
+    "command": "HEADLESS=1 SLOW_MO=0 ./scripts/run_review_checklist_import.sh test --junitxml=artifacts/test-import-20260423/junit.xml",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "time_seconds": 251.161,
+    "result": "通过"
+  },
+  "cases": [
+    {
+      "name": "test_review_checklist_import_modal_copy_and_default_disabled",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 58.442,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_rejects_invalid_type_via_api",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 1.095,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 45.257,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 44.037,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[doc]",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 14.317,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xls]",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 13.362,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_start_button_enables_after_selecting_valid_word",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 73.722,
+      "status": "通过",
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_can_clear_completed_tasks",
+      "classname": "tests.import.test_review_checklist_import",
+      "time_seconds": 0.839,
+      "status": "通过",
+      "message": ""
+    }
+  ],
+  "residue": {
+    "environment": "test",
+    "apiBaseUrl": "https://test-contract-agent.qtech.cn/ai/review-rule/api",
+    "checklistPrefix": "insreview_test_checklist",
+    "tasksStatus": 200,
+    "tasksBeforeClearCount": 0,
+    "clearCompletedStatus": 200,
+    "checklistsStatus": 200,
+    "matchedChecklistCount": 0,
+    "matchedChecklists": []
+  }
+}

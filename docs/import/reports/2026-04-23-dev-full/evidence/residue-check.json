@@ -1,0 +1,10 @@
+{
+  "environment": "dev",
+  "apiBaseUrl": "https://dev-contract-agent.qtech.cn/ai/review-rule/api",
+  "checklistPrefix": "insreview_dev_checklist",
+  "clearCompletedStatus": 200,
+  "tasksStatus": 200,
+  "tasksCount": 0,
+  "matchedChecklistCount": 0,
+  "matchedChecklists": []
+}

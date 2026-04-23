@@ -1,0 +1,526 @@
+{
+  "project": "InsReview / 智审平台 UI 自动化测试",
+  "module": "系统管理 > 智能审查规则管理 > 审查清单 > 导入清单",
+  "environment": "dev",
+  "homeUrl": "https://dev-contract-agent.qtech.cn/home",
+  "pageUrl": "https://dev-contract-agent.qtech.cn/review-rule/checkList",
+  "apiBaseUrl": "https://dev-contract-agent.qtech.cn/ai/review-rule/api",
+  "runDate": "2026-04-23",
+  "generatedAt": "2026-04-23 17:07:03",
+  "fullCommand": "HEADLESS=1 SLOW_MO=0 ./scripts/run_review_checklist_import.sh dev --junitxml=artifacts/dev-import-full-20260423/junit.xml",
+  "rerunCommand": "HEADLESS=1 SLOW_MO=0 ./scripts/run_review_checklist_import.sh dev -q -k 'special_filename or finalize_rejects_empty_rule_refs' --junitxml=artifacts/dev-import-full-20260423/junit-rerun-failures.xml",
+  "authExpiredRun": {
+    "tests": 25,
+    "failures": 23,
+    "errors": 0,
+    "skipped": 2,
+    "time": 386.578,
+    "passed": 0
+  },
+  "fullRun": {
+    "tests": 25,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 2,
+    "time": 1165.385,
+    "passed": 21
+  },
+  "rerun": {
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "time": 69.542,
+    "passed": 2
+  },
+  "finalAutomationVerdict": {
+    "tests": 25,
+    "passed": 23,
+    "failed": 0,
+    "skipped": 2,
+    "fullTime": 1165.385,
+    "rerunTime": 69.542
+  },
+  "matrix": {
+    "total": 30,
+    "passed": 27,
+    "blocked": 3,
+    "failed": 0
+  },
+  "residue": {
+    "environment": "dev",
+    "apiBaseUrl": "https://dev-contract-agent.qtech.cn/ai/review-rule/api",
+    "checklistPrefix": "insreview_dev_checklist",
+    "clearCompletedStatus": 200,
+    "tasksStatus": 200,
+    "tasksCount": 0,
+    "matchedChecklistCount": 0,
+    "matchedChecklists": []
+  },
+  "transientTimeouts": [
+    {
+      "case": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "fullRun": "PARSING 超时",
+      "rerun": "通过"
+    },
+    {
+      "case": "test_review_checklist_import_finalize_rejects_empty_rule_refs",
+      "fullRun": "PARSING 超时",
+      "rerun": "通过"
+    }
+  ],
+  "blockedCases": [
+    {
+      "caseId": "IM-023",
+      "scenario": "手工补充规则后保存",
+      "reason": "缺少稳定测试规则库选择器/可控测试规则组，未真实执行。"
+    },
+    {
+      "caseId": "IM-028",
+      "scenario": "无权限账号访问导入入口",
+      "reason": "缺少 dev 环境无权限账号，本轮跳过。"
+    },
+    {
+      "caseId": "IM-029",
+      "scenario": "多浏览器兼容",
+      "reason": "本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit。"
+    }
+  ],
+  "bugs": [],
+  "conclusion": "dev 环境审查清单导入全量执行已完成。刷新登录态后全量首跑 21 通过、2 失败、2 跳过；2 个失败均为导入任务 PARSING 超时，定点复跑全部通过，最终无遗留失败。业务矩阵 27 通过、3 阻塞/未执行，未发现稳定产品缺陷；清理后无导入任务和测试清单残留。",
+  "matrixRows": [
+    {
+      "caseId": "IM-001",
+      "scenario": "打开导入弹窗",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_modal_copy_and_default_disabled",
+      "note": "刷新 dev 登录态后通过。"
+    },
+    {
+      "caseId": "IM-002",
+      "scenario": "未选择文件",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_modal_copy_and_default_disabled",
+      "note": "开始导入解析按钮默认禁用。"
+    },
+    {
+      "caseId": "IM-003",
+      "scenario": "上传有效 docx 文件",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]",
+      "note": "docx 上传、解析、保存、回写 finalChecklistId、清理均成功。"
+    },
+    {
+      "caseId": "IM-004",
+      "scenario": "上传有效 xlsx 文件",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]",
+      "note": "xlsx 上传、解析、保存、回写 finalChecklistId、清理均成功。"
+    },
+    {
+      "caseId": "IM-005",
+      "scenario": "上传 txt 非法类型",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_rejects_invalid_type_via_api",
+      "note": "接口返回非法类型拦截。"
+    },
+    {
+      "caseId": "IM-006",
+      "scenario": "上传超 10MB 文件",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_rejects_oversize_file_via_api",
+      "note": "接口返回超限拦截，任务数量不增加。"
+    },
+    {
+      "caseId": "IM-007",
+      "scenario": "上传 10MB 临界值文件",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_boundary_10mb_file_can_parse_and_cleanup",
+      "note": "10MB 临界文件允许上传并生成规则。"
+    },
+    {
+      "caseId": "IM-008",
+      "scenario": "上传 doc 旧版 Word 文件",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[doc]",
+      "note": "doc 旧版 Word 可导入、保存并清理。"
+    },
+    {
+      "caseId": "IM-009",
+      "scenario": "上传 xls 旧版 Excel 文件",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xls]",
+      "note": "xls 旧版 Excel 可导入、保存并清理。"
+    },
+    {
+      "caseId": "IM-010",
+      "scenario": "重复上传同名文件",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_duplicate_same_file_creates_distinct_tasks",
+      "note": "同一文件连续上传生成不同 taskId。"
+    },
+    {
+      "caseId": "IM-011",
+      "scenario": "文件名包含中文/空格/特殊字符",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "note": "全量首跑解析超时，定点复跑通过；未复现为稳定缺陷。"
+    },
+    {
+      "caseId": "IM-012",
+      "scenario": "Word 导入解析",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]",
+      "note": "Word 文件解析进入 DRAFT_READY/COMPLETED。"
+    },
+    {
+      "caseId": "IM-013",
+      "scenario": "Excel 导入解析",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]",
+      "note": "Excel 文件解析进入 DRAFT_READY/COMPLETED。"
+    },
+    {
+      "caseId": "IM-014",
+      "scenario": "空白文档导入",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_word] / [empty_excel]",
+      "note": "空白 Word/Excel 均进入 FAILED 终态。"
+    },
+    {
+      "caseId": "IM-015",
+      "scenario": "图片型扫描件导入",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[scan_only_word]",
+      "note": "扫描件进入 FAILED 终态。"
+    },
+    {
+      "caseId": "IM-016",
+      "scenario": "任务中心展示",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_task_center_list_exposes_task_metadata",
+      "note": "任务列表展示文件名、状态、解析时间和操作。"
+    },
+    {
+      "caseId": "IM-017",
+      "scenario": "清除终态任务",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_clear_completed_removes_terminal_failed_task",
+      "note": "终态 FAILED 任务可清除。"
+    },
+    {
+      "caseId": "IM-018",
+      "scenario": "默认清单名称回填",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "note": "特殊文件名场景定点复跑通过，草稿名等于文件名去后缀。"
+    },
+    {
+      "caseId": "IM-019",
+      "scenario": "规则数量与内容展示",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "note": "特殊文件名场景定点复跑通过，规则字段存在。"
+    },
+    {
+      "caseId": "IM-020",
+      "scenario": "不修改直接保存",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx/xlsx/doc/xls]",
+      "note": "直接保存成功生成正式审查清单并清理。"
+    },
+    {
+      "caseId": "IM-021",
+      "scenario": "清单名称为空保存",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_finalize_rejects_empty_name",
+      "note": "接口返回名称必填拦截。"
+    },
+    {
+      "caseId": "IM-022",
+      "scenario": "移除全部规则后保存",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_finalize_rejects_empty_rule_refs",
+      "note": "全量首跑前置解析超时，定点复跑通过，空 ruleRefs 返回拦截。"
+    },
+    {
+      "caseId": "IM-023",
+      "scenario": "手工补充规则后保存",
+      "priority": "P2",
+      "result": "阻塞/未执行",
+      "evidence": "未纳入本轮自动化执行",
+      "note": "缺少稳定测试规则库选择器/可控测试规则组，未真实执行。"
+    },
+    {
+      "caseId": "IM-024",
+      "scenario": "保存成功后列表落库",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx/xlsx/doc/xls]",
+      "note": "保存接口返回 finalChecklistId，清单可删除。"
+    },
+    {
+      "caseId": "IM-025",
+      "scenario": "任务中心状态回写",
+      "priority": "P0",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx/xlsx/doc/xls]",
+      "note": "保存后任务 COMPLETED，finalChecklistId 一致。"
+    },
+    {
+      "caseId": "IM-026",
+      "scenario": "解析过程中刷新页面",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_refresh_recovery_keeps_task_result_accessible",
+      "note": "重新获取任务与草稿仍可访问，并可继续保存完成。"
+    },
+    {
+      "caseId": "IM-027",
+      "scenario": "网络中断后恢复",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_network_failure_does_not_create_dirty_task",
+      "note": "拦截创建任务请求后任务总数不增加。"
+    },
+    {
+      "caseId": "IM-028",
+      "scenario": "无权限账号访问导入入口",
+      "priority": "P1",
+      "result": "阻塞/未执行",
+      "evidence": "test_review_checklist_import_no_permission_account_case_is_blocked",
+      "note": "缺少 dev 环境无权限账号，本轮跳过。"
+    },
+    {
+      "caseId": "IM-029",
+      "scenario": "多浏览器兼容",
+      "priority": "P2",
+      "result": "阻塞/未执行",
+      "evidence": "test_review_checklist_import_non_chromium_compatibility_case_is_blocked",
+      "note": "本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit。"
+    },
+    {
+      "caseId": "IM-030",
+      "scenario": "连续批量导入多个文件",
+      "priority": "P1",
+      "result": "通过",
+      "evidence": "test_review_checklist_import_batch_files_create_independent_tasks",
+      "note": "3 个文件连续导入生成独立任务，均已清理。"
+    }
+  ],
+  "fullCases": [
+    {
+      "name": "test_review_checklist_import_modal_copy_and_default_disabled",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 78.978,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_rejects_invalid_type_via_api",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 0.524,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 50.67,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 37.905,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[doc]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 10.189,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_valid_files_can_finalize_and_cleanup[xls]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 13.689,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_start_button_enables_after_selecting_valid_word",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 46.545,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_can_clear_completed_tasks",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 0.625,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_rejects_oversize_file_via_api",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 9.426,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_boundary_10mb_file_can_parse_and_cleanup",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 11.494,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_duplicate_same_file_creates_distinct_tasks",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 93.165,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "失败",
+      "duration": 302.176,
+      "message": "AssertionError: 导入任务轮询超时: 1126008888789827694"
+    },
+    {
+      "name": "test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_word]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 4.889,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_excel]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 0.582,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[scan_only_word]",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 4.162,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_task_center_list_exposes_task_metadata",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 13.884,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_clear_completed_removes_terminal_failed_task",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 3.846,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_finalize_rejects_empty_name",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 43.824,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_finalize_rejects_empty_rule_refs",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "失败",
+      "duration": 302.034,
+      "message": "AssertionError: 导入任务轮询超时: 1126010490808434814"
+    },
+    {
+      "name": "test_review_checklist_import_refresh_recovery_keeps_task_result_accessible",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 19.83,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_batch_files_create_independent_tasks",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 44.427,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_network_failure_does_not_create_dirty_task",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 71.348,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_no_permission_account_case_is_blocked",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "跳过",
+      "duration": 0.0,
+      "message": "缺少 test 环境无权限账号，无法真实验证 IM-028。"
+    },
+    {
+      "name": "test_review_checklist_import_non_chromium_compatibility_case_is_blocked",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "跳过",
+      "duration": 0.0,
+      "message": "本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit，无法真实验证 IM-029。"
+    },
+    {
+      "name": "test_review_checklist_import_no_generated_prefix_residue",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 1.034,
+      "message": ""
+    }
+  ],
+  "rerunCases": [
+    {
+      "name": "test_review_checklist_import_special_filename_keeps_default_name_and_rules",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 25.745,
+      "message": ""
+    },
+    {
+      "name": "test_review_checklist_import_finalize_rejects_empty_rule_refs",
+      "classname": "tests.import.test_review_checklist_import",
+      "status": "通过",
+      "duration": 43.733,
+      "message": ""
+    }
+  ]
+}

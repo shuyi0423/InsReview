@@ -5,14 +5,17 @@
 当前已提供：
 
 - `dev.env`
+- `test.env`
 - `online.env`
 
 使用方式：
 
 ```bash
 ./scripts/run_ui_suite.sh dev import
+./scripts/run_ui_suite.sh test import
 ./scripts/run_ui_suite.sh online smoke
 ./scripts/run_ui_full.sh dev
+./scripts/run_ui_full.sh test
 ./scripts/run_review_checklist_import.sh online
 ```
 

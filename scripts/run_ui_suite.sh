@@ -18,6 +18,7 @@ Usage:
 Supported profiles:
   local          Do not load an env profile file
   dev            Load env/dev.env
+  test           Load env/test.env
   online         Load env/online.env
 
 Supported suites:
@@ -50,7 +51,7 @@ load_profile_env() {
 PROFILE="local"
 if [[ $# -gt 0 ]]; then
   case "$1" in
-    local|dev|online)
+    local|dev|test|online)
       PROFILE="$1"
       shift
       ;;

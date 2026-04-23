@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="23" skipped="2" tests="25" time="386.578" timestamp="2026-04-23T16:35:36.722624+08:00" hostname="ShuyideMac-mini.local"><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_modal_copy_and_default_disabled" time="118.701"><failure message="playwright._impl._errors.TimeoutError: Page.reload: Timeout 60000ms exceeded.&#10;Call log:&#10;  - waiting for navigation until &quot;domcontentloaded&quot;&#10;    - navigated to &quot;https://dev-myaccount.qtech.cn/login?business_type=contract-review&amp;redirect_uri=%2Fapi%2Fpublic%2Foauth%2Fauthorize%2Fcontract-review%3Fredirect_uri%3Dhttps%253A%252F%252Fdev-contract-agent.qtech.cn%252Flogin%26state%3D%252Freview-rule%252FcheckList%26code_challenge_method%3DS256%26code_challenge%3DiSW7CZiEWvABJgSNcqi4WjMmrflOqbBZGqwJ1atKBVU&quot;">def test_review_checklist_import_modal_copy_and_default_disabled() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+    
+        with sync_playwright() as playwright:
+            browser, context, page = open_authenticated_session(playwright, review_config)
+            try:
+&gt;               dialog = open_review_checklist_import_modal(page, review_config, import_config)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/support/review_checklist_import_support.py:208: in open_review_checklist_import_modal
+    page.reload(wait_until="domcontentloaded")
+.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:9097: in reload
+    self._sync(self._impl_obj.reload(timeout=timeout, waitUntil=wait_until))
+.venv/lib/python3.12/site-packages/playwright/_impl/_page.py:560: in reload
+    await self._channel.send(
+.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;playwright._impl._connection.Connection object at 0x101bd26c0&gt;
+cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x102ba2840&gt;
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.reload: Timeout 60000ms exceeded.
+E           Call log:
+E             - waiting for navigation until "domcontentloaded"
+E               - navigated to "https://dev-myaccount.qtech.cn/login?business_type=contract-review&amp;redirect_uri=%2Fapi%2Fpublic%2Foauth%2Fauthorize%2Fcontract-review%3Fredirect_uri%3Dhttps%253A%252F%252Fdev-contract-agent.qtech.cn%252Flogin%26state%3D%252Freview-rule%252FcheckList%26code_challenge_method%3DS256%26code_challenge%3DiSW7CZiEWvABJgSNcqi4WjMmrflOqbBZGqwJ1atKBVU"
+
+.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:559: TimeoutError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_rejects_invalid_type_via_api" time="0.415"><failure message="AssertionError: assert 401 == 400&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...UHH4vMYU07XWzcLpzk', 'code_challenge': 'PQpdvhVHHBMfG_fSEF1iTZMKfHqyO1pB7VTFQHS3Hvg', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_rejects_invalid_type_via_api() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            try:
+                result = upload_review_checklist_file(api, import_config, fixtures.invalid_type)
+&gt;               assert result.response.status == 400
+E               AssertionError: assert 401 == 400
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...UHH4vMYU07XWzcLpzk', 'code_challenge': 'PQpdvhVHHBMfG_fSEF1iTZMKfHqyO1pB7VTFQHS3Hvg', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:107: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]" time="0.363"><failure message="AssertionError: docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'gkb5zmjR4KGnyE~C1eY-GPk.fJKzYVDVozGm7lyNz6aZMFh8VeVwmOBX6a~ZIrT.', 'code_challenge': 'yTaZFWWEGvEuDTBzSe82NctlRfPiNNgWxvqwH76B65w', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...h8VeVwmOBX6a~ZIrT.', 'code_challenge': 'yTaZFWWEGvEuDTBzSe82NctlRfPiNNgWxvqwH76B65w', 'code_challenge_method': 'S256'}).response">label = 'docx', name_suffix = 'word', fixture_attr = 'valid_word'
+
+    @pytest.mark.parametrize(
+        ("label", "name_suffix", "fixture_attr"),
+        SUCCESS_CASES,
+        ids=[case[0] for case in SUCCESS_CASES],
+    )
+    def test_review_checklist_import_valid_files_can_finalize_and_cleanup(
+        label: str,
+        name_suffix: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+                upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;               assert upload.response.status == 200, f"{label} 上传失败: {upload.json_body}"
+E               AssertionError: docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'gkb5zmjR4KGnyE~C1eY-GPk.fJKzYVDVozGm7lyNz6aZMFh8VeVwmOBX6a~ZIrT.', 'code_challenge': 'yTaZFWWEGvEuDTBzSe82NctlRfPiNNgWxvqwH76B65w', 'code_challenge_method': 'S256'}
+E               assert 401 == 200
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...h8VeVwmOBX6a~ZIrT.', 'code_challenge': 'yTaZFWWEGvEuDTBzSe82NctlRfPiNNgWxvqwH76B65w', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:134: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]" time="0.347"><failure message="AssertionError: xlsx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'FAL0Q1yg5VlR1ujLp3ow27W5psefuQYxT544vhVyYZh3ZIjUf~rZqrQKwhQQhih8', 'code_challenge': 'QmNbxEH61uETOgogPsAjFij1XxWfi2axAnzTUeilkP4', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...jUf~rZqrQKwhQQhih8', 'code_challenge': 'QmNbxEH61uETOgogPsAjFij1XxWfi2axAnzTUeilkP4', 'code_challenge_method': 'S256'}).response">label = 'xlsx', name_suffix = 'excel', fixture_attr = 'valid_excel'
+
+    @pytest.mark.parametrize(
+        ("label", "name_suffix", "fixture_attr"),
+        SUCCESS_CASES,
+        ids=[case[0] for case in SUCCESS_CASES],
+    )
+    def test_review_checklist_import_valid_files_can_finalize_and_cleanup(
+        label: str,
+        name_suffix: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+                upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;               assert upload.response.status == 200, f"{label} 上传失败: {upload.json_body}"
+E               AssertionError: xlsx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'FAL0Q1yg5VlR1ujLp3ow27W5psefuQYxT544vhVyYZh3ZIjUf~rZqrQKwhQQhih8', 'code_challenge': 'QmNbxEH61uETOgogPsAjFij1XxWfi2axAnzTUeilkP4', 'code_challenge_method': 'S256'}
+E               assert 401 == 200
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...jUf~rZqrQKwhQQhih8', 'code_challenge': 'QmNbxEH61uETOgogPsAjFij1XxWfi2axAnzTUeilkP4', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:134: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[doc]" time="0.474"><failure message="AssertionError: doc 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'lGzYI1bDHJCF4yFg8yDaWR5PEE4egejnVE9acFAKJ-rv82gk797nDeYEbxXxoHEZ', 'code_challenge': 'xruz_2hCISlosQm42WizuA83kFg5uSOx3baUCjhXVGM', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...gk797nDeYEbxXxoHEZ', 'code_challenge': 'xruz_2hCISlosQm42WizuA83kFg5uSOx3baUCjhXVGM', 'code_challenge_method': 'S256'}).response">label = 'doc', name_suffix = 'old_word', fixture_attr = 'valid_old_word'
+
+    @pytest.mark.parametrize(
+        ("label", "name_suffix", "fixture_attr"),
+        SUCCESS_CASES,
+        ids=[case[0] for case in SUCCESS_CASES],
+    )
+    def test_review_checklist_import_valid_files_can_finalize_and_cleanup(
+        label: str,
+        name_suffix: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+                upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;               assert upload.response.status == 200, f"{label} 上传失败: {upload.json_body}"
+E               AssertionError: doc 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'lGzYI1bDHJCF4yFg8yDaWR5PEE4egejnVE9acFAKJ-rv82gk797nDeYEbxXxoHEZ', 'code_challenge': 'xruz_2hCISlosQm42WizuA83kFg5uSOx3baUCjhXVGM', 'code_challenge_method': 'S256'}
+E               assert 401 == 200
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...gk797nDeYEbxXxoHEZ', 'code_challenge': 'xruz_2hCISlosQm42WizuA83kFg5uSOx3baUCjhXVGM', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:134: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[xls]" time="0.333"><failure message="AssertionError: xls 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'rpyGjHF6MEPZz9.eatOca_6yLkHGWOdmvrB~HMQ~c9Ejl1Fc9ZJdN~KFUrY3-IN_', 'code_challenge': 'QjMMczkOquuTi_o3D7KqWeMeqqkDcJmHW-JxftqO0RA', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Fc9ZJdN~KFUrY3-IN_', 'code_challenge': 'QjMMczkOquuTi_o3D7KqWeMeqqkDcJmHW-JxftqO0RA', 'code_challenge_method': 'S256'}).response">label = 'xls', name_suffix = 'old_excel', fixture_attr = 'valid_old_excel'
+
+    @pytest.mark.parametrize(
+        ("label", "name_suffix", "fixture_attr"),
+        SUCCESS_CASES,
+        ids=[case[0] for case in SUCCESS_CASES],
+    )
+    def test_review_checklist_import_valid_files_can_finalize_and_cleanup(
+        label: str,
+        name_suffix: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+                upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;               assert upload.response.status == 200, f"{label} 上传失败: {upload.json_body}"
+E               AssertionError: xls 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'rpyGjHF6MEPZz9.eatOca_6yLkHGWOdmvrB~HMQ~c9Ejl1Fc9ZJdN~KFUrY3-IN_', 'code_challenge': 'QjMMczkOquuTi_o3D7KqWeMeqqkDcJmHW-JxftqO0RA', 'code_challenge_method': 'S256'}
+E               assert 401 == 200
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Fc9ZJdN~KFUrY3-IN_', 'code_challenge': 'QjMMczkOquuTi_o3D7KqWeMeqqkDcJmHW-JxftqO0RA', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:134: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_start_button_enables_after_selecting_valid_word" time="257.595"><failure message="AssertionError: 未找到可见的“导入清单”按钮。">def test_review_checklist_import_start_button_enables_after_selecting_valid_word() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            browser, context, page = open_authenticated_session(playwright, review_config)
+            try:
+&gt;               open_review_checklist_import_modal(page, review_config, import_config)
+
+tests/import/test_review_checklist_import.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/support/review_checklist_import_support.py:212: in open_review_checklist_import_modal
+    raise last_error
+tests/support/review_checklist_import_support.py:198: in open_review_checklist_import_modal
+    button = wait_for_import_button(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+page = &lt;Page url='https://dev-myaccount.qtech.cn/login?business_type=contract-review&amp;redirect_uri=%2Fapi%2Fpublic%2Foauth%2Fa...view-rule%252FcheckList%26code_challenge_method%3DS256%26code_challenge%3DZ4jdCQ1s2ryrO_cTARVWWPXLa1sXun8UoTWWYMyoALA'&gt;
+timeout_ms = 30000
+
+    def wait_for_import_button(page: Page, timeout_ms: int) -&gt; Locator:
+        deadline = time.monotonic() + (timeout_ms / 1000)
+        while time.monotonic() &lt; deadline:
+            button = page.get_by_role("button", name="导入清单")
+            if has_visible_locator(button):
+                for index in range(button.count() - 1, -1, -1):
+                    candidate = button.nth(index)
+                    if candidate.is_visible():
+                        return candidate
+            page.wait_for_timeout(250)
+&gt;       raise AssertionError("未找到可见的“导入清单”按钮。")
+E       AssertionError: 未找到可见的“导入清单”按钮。
+
+tests/support/review_checklist_import_support.py:164: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_can_clear_completed_tasks" time="0.486"><failure message="AssertionError: assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/tasks/clear-completed' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/tasks/clear-completed' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/t...MIAM_DzlerP1XWuEXD', 'code_challenge': '3AQDIENQvQ7fJDCs33-IHokbqDe2YZfVGcrmw-c70hI', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_can_clear_completed_tasks() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            try:
+                result = clear_completed_review_checklist_import_tasks(api, import_config)
+&gt;               assert result.response.status == 200
+E               AssertionError: assert 401 == 200
+E                +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/tasks/clear-completed' status=401 status_text='Unauthorized'&gt;.status
+E                +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/tasks/clear-completed' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-checklists/import/t...MIAM_DzlerP1XWuEXD', 'code_challenge': '3AQDIENQvQ7fJDCs33-IHokbqDe2YZfVGcrmw-c70hI', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:200: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_rejects_oversize_file_via_api" time="0.404"><failure message="KeyError: 'data'">def test_review_checklist_import_rejects_oversize_file_via_api() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            try:
+&gt;               before_tasks = list_review_checklist_import_tasks(api, import_config).get("totalElements")
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfd160&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+page_size = 100
+
+    def list_review_checklist_import_tasks(
+        api: APIRequestContext,
+        import_config: ReviewChecklistImportConfig,
+        page_size: int = 100,
+    ) -&gt; dict[str, Any]:
+        response = api.get(
+            f"{import_config.api_base_url}/review-checklists/import/tasks",
+            params={
+                "pageIndex": "1",
+                "pageSize": str(page_size),
+                "centerVisible": "true",
+            },
+        )
+&gt;       return response.json()["data"]
+               ^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'data'
+
+tests/support/review_checklist_import_support.py:421: KeyError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_boundary_10mb_file_can_parse_and_cleanup" time="0.770"><failure message="AssertionError: qa_boundary_10mb_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'HTpEaIg3Fe9EG2qrtEVGb70hln6K8DNtR00QpruNspSTtb-~wWdcCY3vGnEIuA-E', 'code_challenge': 'WUqKXxCxcsMn_9M2pJF97crdRyJdXU88lNbXEXOShiM', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...-~wWdcCY3vGnEIuA-E', 'code_challenge': 'WUqKXxCxcsMn_9M2pJF97crdRyJdXU88lNbXEXOShiM', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_boundary_10mb_file_can_parse_and_cleanup() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, upload, _ = upload_create_and_poll(api, import_config, fixtures.boundary_word)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102e282c0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_boundary_10mb_word_20260408.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_boundary_10mb_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'HTpEaIg3Fe9EG2qrtEVGb70hln6K8DNtR00QpruNspSTtb-~wWdcCY3vGnEIuA-E', 'code_challenge': 'WUqKXxCxcsMn_9M2pJF97crdRyJdXU88lNbXEXOShiM', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...-~wWdcCY3vGnEIuA-E', 'code_challenge': 'WUqKXxCxcsMn_9M2pJF97crdRyJdXU88lNbXEXOShiM', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_duplicate_same_file_creates_distinct_tasks" time="0.367"><failure message="AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'GCA9KsE_LiRF.pxFAepu3afKau9MKL9mmx5~20jI50l6eHeGP75lcRhF3hhIE0ez', 'code_challenge': 'LJosNAYyT0W1X1pbNRstwCsipKHjqo-YvkJ7Ljn5EL4', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...eGP75lcRhF3hhIE0ez', 'code_challenge': 'LJosNAYyT0W1X1pbNRstwCsipKHjqo-YvkJ7Ljn5EL4', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_duplicate_same_file_creates_distinct_tasks() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_ids: list[str] = []
+            try:
+                for _ in range(2):
+&gt;                   task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.valid_word)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:255: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102e296a0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/valid-word.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'GCA9KsE_LiRF.pxFAepu3afKau9MKL9mmx5~20jI50l6eHeGP75lcRhF3hhIE0ez', 'code_challenge': 'LJosNAYyT0W1X1pbNRstwCsipKHjqo-YvkJ7Ljn5EL4', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...eGP75lcRhF3hhIE0ez', 'code_challenge': 'LJosNAYyT0W1X1pbNRstwCsipKHjqo-YvkJ7Ljn5EL4', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_special_filename_keeps_default_name_and_rules" time="0.391"><failure message="AssertionError: QA 特殊 文件名 @审查清单 20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'T3pHOJJ77r~qWF.IuVbKs-ff..73fOuc~e4jvhrQBKTEXFQv_QKbabJWvsps6wny', 'code_challenge': 'zXwDL541TiLbqWpPaUWYBrTdLYSSRpm1YUpE2RbaQT8', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Qv_QKbabJWvsps6wny', 'code_challenge': 'zXwDL541TiLbqWpPaUWYBrTdLYSSRpm1YUpE2RbaQT8', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_special_filename_keeps_default_name_and_rules() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.special_name_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102e2b9b0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/QA 特殊 文件名 @审查清单 20260408_160156.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: QA 特殊 文件名 @审查清单 20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'T3pHOJJ77r~qWF.IuVbKs-ff..73fOuc~e4jvhrQBKTEXFQv_QKbabJWvsps6wny', 'code_challenge': 'zXwDL541TiLbqWpPaUWYBrTdLYSSRpm1YUpE2RbaQT8', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Qv_QKbabJWvsps6wny', 'code_challenge': 'zXwDL541TiLbqWpPaUWYBrTdLYSSRpm1YUpE2RbaQT8', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_word]" time="0.386"><failure message="AssertionError: qa_empty_word_20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'zNRuhkYrd7~C5jnhjt7e2tmLSg5eZRbp~rsen~ClytKa3MVCMqKsXdF45tzOe9Fd', 'code_challenge': 'Sl7Gt127saNCxHdfGteq_0mN9kOvd2bNG2alNHkgqPU', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...VCMqKsXdF45tzOe9Fd', 'code_challenge': 'Sl7Gt127saNCxHdfGteq_0mN9kOvd2bNG2alNHkgqPU', 'code_challenge_method': 'S256'}).response">label = 'empty_word', fixture_attr = 'empty_word'
+
+    @pytest.mark.parametrize(
+        ("label", "fixture_attr"),
+        FAILED_TERMINAL_CASES,
+        ids=[case[0] for case in FAILED_TERMINAL_CASES],
+    )
+    def test_review_checklist_import_unsupported_content_reaches_failed_terminal_state(
+        label: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, file_path)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:323: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dff890&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_empty_word_20260408_160156.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_empty_word_20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'zNRuhkYrd7~C5jnhjt7e2tmLSg5eZRbp~rsen~ClytKa3MVCMqKsXdF45tzOe9Fd', 'code_challenge': 'Sl7Gt127saNCxHdfGteq_0mN9kOvd2bNG2alNHkgqPU', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...VCMqKsXdF45tzOe9Fd', 'code_challenge': 'Sl7Gt127saNCxHdfGteq_0mN9kOvd2bNG2alNHkgqPU', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_excel]" time="0.388"><failure message="AssertionError: qa_empty_excel_20260408_160156.xlsx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'jBXwgBs4QnH01BhZPYhOi9URVHkxnMvNBQ3A6mL.D.1~eXBOrfqC6zmfTjVMWG7X', 'code_challenge': 'Juwj1QunR9werC_jNw35dBvMWQT46V2uK-LfXiZOsho', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...BOrfqC6zmfTjVMWG7X', 'code_challenge': 'Juwj1QunR9werC_jNw35dBvMWQT46V2uK-LfXiZOsho', 'code_challenge_method': 'S256'}).response">label = 'empty_excel', fixture_attr = 'empty_excel'
+
+    @pytest.mark.parametrize(
+        ("label", "fixture_attr"),
+        FAILED_TERMINAL_CASES,
+        ids=[case[0] for case in FAILED_TERMINAL_CASES],
+    )
+    def test_review_checklist_import_unsupported_content_reaches_failed_terminal_state(
+        label: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, file_path)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:323: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dff170&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_empty_excel_20260408_160156.xlsx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_empty_excel_20260408_160156.xlsx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'jBXwgBs4QnH01BhZPYhOi9URVHkxnMvNBQ3A6mL.D.1~eXBOrfqC6zmfTjVMWG7X', 'code_challenge': 'Juwj1QunR9werC_jNw35dBvMWQT46V2uK-LfXiZOsho', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...BOrfqC6zmfTjVMWG7X', 'code_challenge': 'Juwj1QunR9werC_jNw35dBvMWQT46V2uK-LfXiZOsho', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[scan_only_word]" time="0.401"><failure message="AssertionError: qa_scan_only_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'Ty0Nn2wCDu3sYr0Bl6ZHWr.hTf71KLqXn42SsYRczx285GKcS1OR63zkgP8Sq7Ds', 'code_challenge': 'Sf0yiyUKlRM29Jxw4LkfreXK0IguiFpVgRqQYWmPGKQ', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...KcS1OR63zkgP8Sq7Ds', 'code_challenge': 'Sf0yiyUKlRM29Jxw4LkfreXK0IguiFpVgRqQYWmPGKQ', 'code_challenge_method': 'S256'}).response">label = 'scan_only_word', fixture_attr = 'scan_only_word'
+
+    @pytest.mark.parametrize(
+        ("label", "fixture_attr"),
+        FAILED_TERMINAL_CASES,
+        ids=[case[0] for case in FAILED_TERMINAL_CASES],
+    )
+    def test_review_checklist_import_unsupported_content_reaches_failed_terminal_state(
+        label: str,
+        fixture_attr: str,
+    ) -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        file_path = getattr(fixtures, fixture_attr)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, file_path)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:323: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfbdd0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_scan_only_word_20260408.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_scan_only_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'Ty0Nn2wCDu3sYr0Bl6ZHWr.hTf71KLqXn42SsYRczx285GKcS1OR63zkgP8Sq7Ds', 'code_challenge': 'Sf0yiyUKlRM29Jxw4LkfreXK0IguiFpVgRqQYWmPGKQ', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...KcS1OR63zkgP8Sq7Ds', 'code_challenge': 'Sf0yiyUKlRM29Jxw4LkfreXK0IguiFpVgRqQYWmPGKQ', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_task_center_list_exposes_task_metadata" time="0.393"><failure message="AssertionError: qa_batch_import_1_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '2~6pJf~H9mHh20D5jfNquj7vMruKq~nSLCM0aCCa9ociqDGlks8~fV1LJ8zKJPu3', 'code_challenge': '4gKqDU6Z9teBtJFOSmKa1IRbTMew292AxTiXGVeWh5Y', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Glks8~fV1LJ8zKJPu3', 'code_challenge': '4gKqDU6Z9teBtJFOSmKa1IRbTMew292AxTiXGVeWh5Y', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_task_center_list_exposes_task_metadata() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.batch_word_1)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:340: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfb1d0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_batch_import_1_20260408.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_batch_import_1_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '2~6pJf~H9mHh20D5jfNquj7vMruKq~nSLCM0aCCa9ociqDGlks8~fV1LJ8zKJPu3', 'code_challenge': '4gKqDU6Z9teBtJFOSmKa1IRbTMew292AxTiXGVeWh5Y', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...Glks8~fV1LJ8zKJPu3', 'code_challenge': '4gKqDU6Z9teBtJFOSmKa1IRbTMew292AxTiXGVeWh5Y', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_clear_completed_removes_terminal_failed_task" time="0.394"><failure message="AssertionError: qa_empty_word_20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'sutH6qVS_Z6orgMu4cmwZvnbvS9X9s05qcpYce9yV0ieuYeK9NevEVM4DmHGZA~4', 'code_challenge': 'Mhas3WM7rLNTjTMiFMvVHG3f3R93FRGxc7ojbEfVR38', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...eK9NevEVM4DmHGZA~4', 'code_challenge': 'Mhas3WM7rLNTjTMiFMvVHG3f3R93FRGxc7ojbEfVR38', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_clear_completed_removes_terminal_failed_task() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.empty_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:366: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfd160&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_empty_word_20260408_160156.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_empty_word_20260408_160156.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'sutH6qVS_Z6orgMu4cmwZvnbvS9X9s05qcpYce9yV0ieuYeK9NevEVM4DmHGZA~4', 'code_challenge': 'Mhas3WM7rLNTjTMiFMvVHG3f3R93FRGxc7ojbEfVR38', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...eK9NevEVM4DmHGZA~4', 'code_challenge': 'Mhas3WM7rLNTjTMiFMvVHG3f3R93FRGxc7ojbEfVR38', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_finalize_rejects_empty_name" time="0.508"><failure message="AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'UVd.R6MsajcL4oFd_GhyJO2helFBedmH_gnquNgwbf5aBHhBq7Q3LUbnToLaSd7X', 'code_challenge': 'bJkQr0GYQ75IojkEMuF9kQYRr3m-GHwtkvAcR61NOqE', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...hBq7Q3LUbnToLaSd7X', 'code_challenge': 'bJkQr0GYQ75IojkEMuF9kQYRr3m-GHwtkvAcR61NOqE', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_finalize_rejects_empty_name() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.valid_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:389: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102e287a0&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/valid-word.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'UVd.R6MsajcL4oFd_GhyJO2helFBedmH_gnquNgwbf5aBHhBq7Q3LUbnToLaSd7X', 'code_challenge': 'bJkQr0GYQ75IojkEMuF9kQYRr3m-GHwtkvAcR61NOqE', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...hBq7Q3LUbnToLaSd7X', 'code_challenge': 'bJkQr0GYQ75IojkEMuF9kQYRr3m-GHwtkvAcR61NOqE', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_finalize_rejects_empty_rule_refs" time="0.402"><failure message="AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'tR8j~-bywHmyGazp1~FwdwpcyAwf_7aK6BAuuHymlMJbgKpCFx~aYRvpreJ~EI~v', 'code_challenge': 'GuCk949zVpeBrxQmIkOGYN3jrCtE8_IkIaTF1i0cspM', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...pCFx~aYRvpreJ~EI~v', 'code_challenge': 'GuCk949zVpeBrxQmIkOGYN3jrCtE8_IkIaTF1i0cspM', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_finalize_rejects_empty_rule_refs() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.valid_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:416: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x105a4a960&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/valid-word.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: valid-word.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': 'tR8j~-bywHmyGazp1~FwdwpcyAwf_7aK6BAuuHymlMJbgKpCFx~aYRvpreJ~EI~v', 'code_challenge': 'GuCk949zVpeBrxQmIkOGYN3jrCtE8_IkIaTF1i0cspM', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...pCFx~aYRvpreJ~EI~v', 'code_challenge': 'GuCk949zVpeBrxQmIkOGYN3jrCtE8_IkIaTF1i0cspM', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_refresh_recovery_keeps_task_result_accessible" time="0.543"><failure message="AssertionError: qa_edit_rules_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '28.MGJe-l1q~0ra4zfQL2GhRLFz3sne77Kj2.TlzoBB.bMz~1xoXzi~FHZFdmsUl', 'code_challenge': 'I3t4lVslynLjaUJu-Y6HiWtz6-PKATrY1cVav4LfW2Y', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...z~1xoXzi~FHZFdmsUl', 'code_challenge': 'I3t4lVslynLjaUJu-Y6HiWtz6-PKATrY1cVav4LfW2Y', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_refresh_recovery_keeps_task_result_accessible() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.edit_rules_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:443: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x105a4b200&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_edit_rules_word_20260408.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_edit_rules_word_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '28.MGJe-l1q~0ra4zfQL2GhRLFz3sne77Kj2.TlzoBB.bMz~1xoXzi~FHZFdmsUl', 'code_challenge': 'I3t4lVslynLjaUJu-Y6HiWtz6-PKATrY1cVav4LfW2Y', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...z~1xoXzi~FHZFdmsUl', 'code_challenge': 'I3t4lVslynLjaUJu-Y6HiWtz6-PKATrY1cVav4LfW2Y', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_batch_files_create_independent_tasks" time="0.452"><failure message="AssertionError: qa_batch_import_1_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '8n4ed3XiXlTgJ93tXk1RDw9FvNbWcUQy42lEUn5jMrNSDjmCgnh_LvG1TYEBgXoD', 'code_challenge': 'a7Mc7YKWiC0UMqlJZl6lKC2ptrnUzE-ni8QRMP1OPV0', 'code_challenge_method': 'S256'}&#10;assert 401 == 200&#10; +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status&#10; +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...mCgnh_LvG1TYEBgXoD', 'code_challenge': 'a7Mc7YKWiC0UMqlJZl6lKC2ptrnUzE-ni8QRMP1OPV0', 'code_challenge_method': 'S256'}).response">def test_review_checklist_import_batch_files_create_independent_tasks() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+        batch_files = [fixtures.batch_word_1, fixtures.batch_word_2, fixtures.batch_word_3]
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_ids: list[str] = []
+            try:
+                for file_path in batch_files:
+&gt;                   task_id, task, _, _ = upload_create_and_poll(api, import_config, file_path)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:486: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfd130&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+file_path = PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import/round_20260408/qa_batch_import_1_20260408.docx')
+
+    def upload_create_and_poll(api, import_config, file_path):
+        upload = upload_review_checklist_file(api, import_config, file_path)
+&gt;       assert upload.response.status == 200, f"{file_path.name} 上传失败: {upload.json_body}"
+E       AssertionError: qa_batch_import_1_20260408.docx 上传失败: {'code': 99100401, 'msg': 'token验证失败', 'code_verifier': '8n4ed3XiXlTgJ93tXk1RDw9FvNbWcUQy42lEUn5jMrNSDjmCgnh_LvG1TYEBgXoD', 'code_challenge': 'a7Mc7YKWiC0UMqlJZl6lKC2ptrnUzE-ni8QRMP1OPV0', 'code_challenge_method': 'S256'}
+E       assert 401 == 200
+E        +  where 401 = &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt;.status
+E        +    where &lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload' status=401 status_text='Unauthorized'&gt; = ApiResult(response=&lt;APIResponse url='https://dev-contract-agent.qtech.cn/ai/review-rule/api/review-import-files/upload...mCgnh_LvG1TYEBgXoD', 'code_challenge': 'a7Mc7YKWiC0UMqlJZl6lKC2ptrnUzE-ni8QRMP1OPV0', 'code_challenge_method': 'S256'}).response
+
+tests/import/test_review_checklist_import.py:53: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_network_failure_does_not_create_dirty_task" time="1.360"><failure message="KeyError: 'data'">def test_review_checklist_import_network_failure_does_not_create_dirty_task() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            browser, context, page = open_authenticated_session(playwright, review_config)
+            api = create_review_checklist_api_context(playwright, review_config)
+            try:
+&gt;               before_tasks = list_review_checklist_import_tasks(api, import_config).get("totalElements")
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:507: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfa180&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+page_size = 100
+
+    def list_review_checklist_import_tasks(
+        api: APIRequestContext,
+        import_config: ReviewChecklistImportConfig,
+        page_size: int = 100,
+    ) -&gt; dict[str, Any]:
+        response = api.get(
+            f"{import_config.api_base_url}/review-checklists/import/tasks",
+            params={
+                "pageIndex": "1",
+                "pageSize": str(page_size),
+                "centerVisible": "true",
+            },
+        )
+&gt;       return response.json()["data"]
+               ^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'data'
+
+tests/support/review_checklist_import_support.py:421: KeyError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_no_permission_account_case_is_blocked" time="0.000"><skipped type="pytest.skip" message="缺少 test 环境无权限账号，无法真实验证 IM-028。">/Users/shuyi/PycharmProjects/InsReview/tests/import/test_review_checklist_import.py:524: 缺少 test 环境无权限账号，无法真实验证 IM-028。</skipped></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_non_chromium_compatibility_case_is_blocked" time="0.000"><skipped type="pytest.skip" message="本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit，无法真实验证 IM-029。">/Users/shuyi/PycharmProjects/InsReview/tests/import/test_review_checklist_import.py:528: 本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit，无法真实验证 IM-029。</skipped></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_no_generated_prefix_residue" time="0.370"><failure message="KeyError: 'data'">def test_review_checklist_import_no_generated_prefix_residue() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            try:
+&gt;               checklists = list_review_checklists(api, import_config).get("content") or []
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:538: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x102dfbf50&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+page_size = 100
+
+    def list_review_checklists(
+        api: APIRequestContext,
+        import_config: ReviewChecklistImportConfig,
+        page_size: int = 100,
+    ) -&gt; dict[str, Any]:
+        response = api.get(
+            f"{import_config.api_base_url}/review-checklists",
+            params={
+                "pageIndex": "1",
+                "pageSize": str(page_size),
+            },
+        )
+&gt;       return response.json()["data"]
+               ^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'data'
+
+tests/support/review_checklist_import_support.py:436: KeyError</failure></testcase></testsuite></testsuites>

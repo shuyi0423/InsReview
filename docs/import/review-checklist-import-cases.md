@@ -81,6 +81,7 @@
 ```bash
 ./scripts/run_review_checklist_import.sh
 ./scripts/run_review_checklist_import.sh dev
+./scripts/run_review_checklist_import.sh test
 ./scripts/run_review_checklist_import.sh online
 ```
 
@@ -92,7 +93,7 @@ python3 -m pytest tests/import/test_review_checklist_import.py -s
 
 ## 环境变量补充
 
-项目现在支持通过 `env/dev.env` 与 `env/online.env` 切换环境。默认会复用共享 `.env` 中的公共参数；如果 profile 中覆盖了 `APP_LOGIN_URL`、`AUTH_STORAGE_STATE_PATH`、导入页地址或 API 地址，则会优先生效。
+项目现在支持通过 `env/dev.env`、`env/test.env` 与 `env/online.env` 切换环境。默认会复用共享 `.env` 中的公共参数；如果 profile 中覆盖了 `APP_LOGIN_URL`、`AUTH_STORAGE_STATE_PATH`、导入页地址或 API 地址，则会优先生效。
 
 导入清单回归重点相关变量如下：
 

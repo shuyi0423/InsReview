@@ -52,6 +52,10 @@ class ReviewChecklistFixtures:
     empty_excel: Path
     scan_only_word: Path
     special_name_word: Path
+    edit_rules_word: Path
+    batch_word_1: Path
+    batch_word_2: Path
+    batch_word_3: Path
 
 
 @dataclass(frozen=True)
@@ -114,6 +118,10 @@ def load_review_checklist_fixtures(
         empty_excel=archive_dir / "qa_empty_excel_20260408_160156.xlsx",
         scan_only_word=archive_dir / "qa_scan_only_word_20260408.docx",
         special_name_word=archive_dir / "QA 特殊 文件名 @审查清单 20260408_160156.docx",
+        edit_rules_word=archive_dir / "qa_edit_rules_word_20260408.docx",
+        batch_word_1=archive_dir / "qa_batch_import_1_20260408.docx",
+        batch_word_2=archive_dir / "qa_batch_import_2_20260408.docx",
+        batch_word_3=archive_dir / "qa_batch_import_3_20260408.docx",
     )
 
     for path in (
@@ -217,7 +225,11 @@ def select_review_checklist_import_file(page: Page, file_path: Path) -> None:
 def save_review_checklist_import_screenshot(page: Page, filename: str) -> Path:
     ARTIFACTS_DIR.mkdir(exist_ok=True)
     target = ARTIFACTS_DIR / filename
-    page.screenshot(path=str(target), full_page=True)
+    try:
+        page.screenshot(path=str(target), full_page=True, timeout=10000)
+    except Error:
+        # 截图是辅助证据，不能覆盖真正的用例失败原因。
+        pass
     return target
 
 
@@ -228,6 +240,7 @@ def open_authenticated_session(playwright: Playwright, review_config: ReviewConf
     context = create_authenticated_context(browser, review_config)
     page = context.new_page()
     page.set_default_timeout(review_config.ui_timeout_ms)
+    page.set_default_navigation_timeout(review_config.review_config_timeout_ms)
     return browser, context, page
 
 
@@ -320,6 +333,25 @@ def poll_review_checklist_import_task(
     raise AssertionError(f"导入任务轮询超时: {task_id}")
 
 
+def poll_review_checklist_import_task_until_status(
+    api: APIRequestContext,
+    import_config: ReviewChecklistImportConfig,
+    task_id: str,
+    expected_statuses: set[str],
+    timeout_ms: int | None = None,
+) -> dict[str, Any]:
+    deadline = time.monotonic() + ((timeout_ms or import_config.task_timeout_ms) / 1000)
+    latest: dict[str, Any] | None = None
+    while time.monotonic() < deadline:
+        latest = get_review_checklist_import_task(api, import_config, task_id)
+        if latest.get("status") in expected_statuses:
+            return latest
+        time.sleep(3)
+    raise AssertionError(
+        f"导入任务未进入期望状态: {task_id}, expected={sorted(expected_statuses)}, latest={latest}"
+    )
+
+
 def get_review_checklist_draft(
     api: APIRequestContext,
     import_config: ReviewChecklistImportConfig,
@@ -373,6 +405,37 @@ def clear_completed_review_checklist_import_tasks(
     return ApiResult(response=response, json_body=response.json())
 
 
+def list_review_checklist_import_tasks(
+    api: APIRequestContext,
+    import_config: ReviewChecklistImportConfig,
+    page_size: int = 100,
+) -> dict[str, Any]:
+    response = api.get(
+        f"{import_config.api_base_url}/review-checklists/import/tasks",
+        params={
+            "pageIndex": "1",
+            "pageSize": str(page_size),
+            "centerVisible": "true",
+        },
+    )
+    return response.json()["data"]
+
+
+def list_review_checklists(
+    api: APIRequestContext,
+    import_config: ReviewChecklistImportConfig,
+    page_size: int = 100,
+) -> dict[str, Any]:
+    response = api.get(
+        f"{import_config.api_base_url}/review-checklists",
+        params={
+            "pageIndex": "1",
+            "pageSize": str(page_size),
+        },
+    )
+    return response.json()["data"]
+
+
 def delete_review_checklist(
     api: APIRequestContext,
     import_config: ReviewChecklistImportConfig,
@@ -383,5 +446,7 @@ def delete_review_checklist(
 
 
 def build_unique_checklist_name(prefix: str) -> str:
-    stamp = time.strftime("%Y%m%d%H%M%S")
-    return f"{prefix}_{stamp}"
+    stamp = time.strftime("%m%d%H%M%S")
+    token = uuid.uuid4().hex[:6]
+    max_prefix_length = 50 - len(stamp) - len(token) - 2
+    return f"{prefix[:max_prefix_length]}_{stamp}_{token}"

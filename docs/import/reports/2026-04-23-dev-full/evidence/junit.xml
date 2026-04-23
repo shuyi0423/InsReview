@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="2" tests="25" time="1165.385" timestamp="2026-04-23T16:43:40.005226+08:00" hostname="ShuyideMac-mini.local"><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_modal_copy_and_default_disabled" time="78.978" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_rejects_invalid_type_via_api" time="0.524" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[docx]" time="50.670" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[xlsx]" time="37.905" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[doc]" time="10.189" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_valid_files_can_finalize_and_cleanup[xls]" time="13.689" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_start_button_enables_after_selecting_valid_word" time="46.545" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_can_clear_completed_tasks" time="0.625" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_rejects_oversize_file_via_api" time="9.426" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_boundary_10mb_file_can_parse_and_cleanup" time="11.494" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_duplicate_same_file_creates_distinct_tasks" time="93.165" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_special_filename_keeps_default_name_and_rules" time="302.176"><failure message="AssertionError: 导入任务轮询超时: 1126008888789827694">def test_review_checklist_import_special_filename_keeps_default_name_and_rules() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            checklist_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.special_name_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/import/test_review_checklist_import.py:64: in upload_create_and_poll
+    task = poll_review_checklist_import_task(api, import_config, task_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x108d4da90&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+task_id = '1126008888789827694'
+
+    def poll_review_checklist_import_task(
+        api: APIRequestContext,
+        import_config: ReviewChecklistImportConfig,
+        task_id: str,
+    ) -&gt; dict[str, Any]:
+        deadline = time.monotonic() + (import_config.task_timeout_ms / 1000)
+        while time.monotonic() &lt; deadline:
+            task = get_review_checklist_import_task(api, import_config, task_id)
+            if task.get("status") != "PARSING":
+                return task
+            time.sleep(3)
+&gt;       raise AssertionError(f"导入任务轮询超时: {task_id}")
+E       AssertionError: 导入任务轮询超时: 1126008888789827694
+
+tests/support/review_checklist_import_support.py:333: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_word]" time="4.889" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[empty_excel]" time="0.582" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_unsupported_content_reaches_failed_terminal_state[scan_only_word]" time="4.162" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_task_center_list_exposes_task_metadata" time="13.884" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_clear_completed_removes_terminal_failed_task" time="3.846" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_finalize_rejects_empty_name" time="43.824" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_finalize_rejects_empty_rule_refs" time="302.034"><failure message="AssertionError: 导入任务轮询超时: 1126010490808434814">def test_review_checklist_import_finalize_rejects_empty_rule_refs() -&gt; None:
+        review_config = load_review_config()
+        import_config = load_review_checklist_import_config(review_config)
+        fixtures = load_review_checklist_fixtures(import_config)
+    
+        with sync_playwright() as playwright:
+            api = create_review_checklist_api_context(playwright, review_config)
+            task_id = ""
+            try:
+&gt;               task_id, task, _, _ = upload_create_and_poll(api, import_config, fixtures.valid_word)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/import/test_review_checklist_import.py:416: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/import/test_review_checklist_import.py:64: in upload_create_and_poll
+    task = poll_review_checklist_import_task(api, import_config, task_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+api = &lt;playwright._impl._fetch.APIRequestContext object at 0x108f97c50&gt;
+import_config = ReviewChecklistImportConfig(page_url='https://dev-contract-agent.qtech.cn/review-rule/checkList', api_base_url='https:...klist', fixtures_dir=PosixPath('/Users/shuyi/PycharmProjects/InsReview/tests/fixtures/import/review_checklist_import'))
+task_id = '1126010490808434814'
+
+    def poll_review_checklist_import_task(
+        api: APIRequestContext,
+        import_config: ReviewChecklistImportConfig,
+        task_id: str,
+    ) -&gt; dict[str, Any]:
+        deadline = time.monotonic() + (import_config.task_timeout_ms / 1000)
+        while time.monotonic() &lt; deadline:
+            task = get_review_checklist_import_task(api, import_config, task_id)
+            if task.get("status") != "PARSING":
+                return task
+            time.sleep(3)
+&gt;       raise AssertionError(f"导入任务轮询超时: {task_id}")
+E       AssertionError: 导入任务轮询超时: 1126010490808434814
+
+tests/support/review_checklist_import_support.py:333: AssertionError</failure></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_refresh_recovery_keeps_task_result_accessible" time="19.830" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_batch_files_create_independent_tasks" time="44.427" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_network_failure_does_not_create_dirty_task" time="71.348" /><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_no_permission_account_case_is_blocked" time="0.000"><skipped type="pytest.skip" message="缺少 test 环境无权限账号，无法真实验证 IM-028。">/Users/shuyi/PycharmProjects/InsReview/tests/import/test_review_checklist_import.py:524: 缺少 test 环境无权限账号，无法真实验证 IM-028。</skipped></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_non_chromium_compatibility_case_is_blocked" time="0.000"><skipped type="pytest.skip" message="本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit，无法真实验证 IM-029。">/Users/shuyi/PycharmProjects/InsReview/tests/import/test_review_checklist_import.py:528: 本机仅安装 Chromium/Chrome，未安装 Playwright Firefox/WebKit，无法真实验证 IM-029。</skipped></testcase><testcase classname="tests.import.test_review_checklist_import" name="test_review_checklist_import_no_generated_prefix_residue" time="1.034" /></testsuite></testsuites>
