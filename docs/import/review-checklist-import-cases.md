@@ -82,7 +82,7 @@
 | --- | --- |
 | `tests/fixtures/import/review_checklist_import/valid-word.docx` | 中文 Word 标准导入样例 |
 | `tests/fixtures/import/review_checklist_import/valid-excel.xlsx` | 中文 Excel 标准导入样例 |
-| `tests/fixtures/import/review_checklist_import/english-word.docx` | 英文 Word 标准导入样例，验证导入后不被翻译成中文 |
+| `tests/fixtures/import/review_checklist_import/english-word.docx` | 英文 Word 标准导入样例，使用段落式规则块，不使用 Word 表格，验证导入后不被翻译成中文 |
 | `tests/fixtures/import/review_checklist_import/english-excel.xlsx` | 英文 Excel 标准导入样例，验证导入后不被翻译成中文 |
 
 ## 运行方式

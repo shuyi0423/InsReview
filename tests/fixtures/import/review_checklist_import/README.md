@@ -14,6 +14,7 @@ This directory stores the migrated fixtures for `审查清单 > 导入清单`.
 
 `valid-word.docx` / `valid-excel.xlsx` are the standard Chinese import samples.
 `english-word.docx` / `english-excel.xlsx` are the standard English import samples used to verify imported checklist rules are not translated into Chinese.
+`english-word.docx` intentionally uses paragraph-based rule blocks instead of Word tables.
 
 ## Archived files from the 2026-04-08 round
 
