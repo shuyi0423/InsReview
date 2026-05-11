@@ -30,10 +30,24 @@
 
 ## 执行范围与结果
 
-| 平台 | 覆盖范围 | 执行结果 | 关键校验 |
-| --- | --- | --- | --- |
-| InsReview / 智审平台 | 英文 Word 导入；英文 Excel 导入 | `2 passed in 75.44s (0:01:15)` | 草稿 `selectedRules` 中保留 `English`、`confidential` 等英文内容，未出现中文化 |
-| WisContract / 智书合同 | UI 英文 Word/Excel 导入；API 英文 Excel 导入 | UI：`2 passed (1.4m)`；API：`1 passed (29.2s)` | 页面导入草稿与 API 草稿均保持英文内容，未出现中文化 |
+### 用例明细
+
+| 用例编号 | 平台 | 自动化用例 | 样例文件 | 校验点 | 实际结果 | 结论 |
+| --- | --- | --- | --- | --- | --- | --- |
+| ENG-IR-001 | InsReview / 智审平台 | `test_review_checklist_import_english_files_keep_draft_language[english_docx]` | `tests/fixtures/import/review_checklist_import/english-word.docx` | 上传成功；创建导入任务成功；任务进入 `DRAFT_READY`；草稿 `selectedRules` 有规则；规则名称、内容、风险提示不含中文；包含 `English` 与 `confidential` 语义 | 通过，任务完成后已 `dismiss` 清理 | 通过 |
+| ENG-IR-002 | InsReview / 智审平台 | `test_review_checklist_import_english_files_keep_draft_language[english_xlsx]` | `tests/fixtures/import/review_checklist_import/english-excel.xlsx` | 上传成功；创建导入任务成功；任务进入 `DRAFT_READY`；草稿 `selectedRules` 有规则；规则名称、内容、风险提示不含中文；包含 `English` 与 `confidential` 语义 | 通过，任务完成后已 `dismiss` 清理 | 通过 |
+| ENG-WC-001 | WisContract / 智书合同 | `keeps english docx checklist draft content in English` | `tests/fixtures/review-checklist-import/english-word.docx` | 上传成功；创建导入任务成功；任务进入 `DRAFT_READY`；草稿 `selectedRules` 有规则；规则名称、内容、风险提示不含中文；包含 `English` 与 `confidential` 语义 | 通过，任务完成后已 `dismiss` 清理 | 通过 |
+| ENG-WC-002 | WisContract / 智书合同 | `keeps english xlsx checklist draft content in English` | `tests/fixtures/review-checklist-import/english-excel.xlsx` | 上传成功；创建导入任务成功；任务进入 `DRAFT_READY`；草稿 `selectedRules` 有规则；规则名称、内容、风险提示不含中文；包含 `English` 与 `confidential` 语义 | 通过，任务完成后已 `dismiss` 清理 | 通过 |
+| ENG-WC-003 | WisContract / 智书合同 | `keeps imported English xlsx checklist draft content in English` | `tests/fixtures/review-checklist-import/english-excel.xlsx` | API 上传成功；创建导入任务成功；任务进入 `DRAFT_READY`；草稿 `selectedRules` 有规则；规则名称、内容、风险提示不含中文；包含 `English` 与 `confidential` 语义 | 通过，任务完成后已 `dismiss` 清理 | 通过 |
+
+### 执行汇总
+
+| 平台 | 执行层 | 用例数 | 通过 | 失败 | 命令结果 |
+| --- | --- | ---: | ---: | ---: | --- |
+| InsReview / 智审平台 | pytest 导入清单接口闭环 | 2 | 2 | 0 | `2 passed in 75.44s (0:01:15)` |
+| WisContract / 智书合同 | Playwright spec 导入清单闭环 | 2 | 2 | 0 | `2 passed (1.4m)` |
+| WisContract / 智书合同 | Playwright API 导入清单回归 | 1 | 1 | 0 | `1 passed (29.2s)` |
+| 合计 | 双平台 test 英文导入复测 | 5 | 5 | 0 | 全部通过 |
 
 ## 执行命令
 
