@@ -1066,7 +1066,12 @@ def wait_for_review_result(page: Page, timeout_ms: int, retry_limit: int = 0) ->
             page_refreshes_used += 1
             continue
         if review_hard_failed(page):
-            raise AssertionError("检测到智能审核失败。")
+            if retries_used >= retry_limit:
+                raise AssertionError("检测到智能审核失败，且已达到自动重试上限。")
+            if not click_retry_action(page, timeout_ms=min(timeout_ms, 5000)):
+                raise AssertionError("检测到智能审核失败，但未找到可点击的“刷新/重试”按钮。")
+            retries_used += 1
+            continue
         if review_failed(page):
             if retries_used >= retry_limit:
                 raise AssertionError("检测到可重试的审查失败，但已达到自动重试上限。")

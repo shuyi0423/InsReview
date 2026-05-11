@@ -16,6 +16,7 @@
 - 校验支持格式、`10MB` 限制文案、默认禁用态
 - 通过 API 校验 `txt` 非法类型拦截
 - `docx / xlsx / doc / xls` 导入解析
+- 英文 `docx / xlsx` 导入后草稿规则保持英文，不被翻译成中文
 - 草稿生成后正式保存
 - 清单删除与任务驳回清理
 - `清除已完成` 接口校验
@@ -56,6 +57,8 @@
 | IM-028 | 无权限账号访问导入入口 | 隐藏导入按钮或点击后提示无权限 |
 | IM-029 | 多浏览器兼容 | 关键主流程一致可用 |
 | IM-030 | 连续批量导入多个文件 | 任务中心正确排队，无页面卡死或任务串乱 |
+| IM-031 | 导入英文 Word 审查清单 | 解析成功后草稿规则名称、审查逻辑、风险提示保持英文，不被翻译成中文 |
+| IM-032 | 导入英文 Excel 审查清单 | 解析成功后草稿规则名称、审查逻辑、风险提示保持英文，不被翻译成中文 |
 
 ### 线上回归范围
 
@@ -71,6 +74,16 @@
 | OLR-008 | doc 旧版 Word 导入解析并保存 | 旧版 Word 可导入、保存并可删除清理 |
 | OLR-009 | xls 旧版 Excel 导入解析并保存 | 旧版 Excel 可导入、保存并可删除清理 |
 | OLR-010 | 任务中心清除已完成 | 清除已完成接口执行成功，已完成任务可被清理 |
+| OLR-011 | 英文 Excel 导入语言保持 | 解析完成后草稿规则保持英文，不被翻译成中文 |
+
+## 标准测试文件
+
+| 文件 | 用途 |
+| --- | --- |
+| `tests/fixtures/import/review_checklist_import/valid-word.docx` | 中文 Word 标准导入样例 |
+| `tests/fixtures/import/review_checklist_import/valid-excel.xlsx` | 中文 Excel 标准导入样例 |
+| `tests/fixtures/import/review_checklist_import/english-word.docx` | 英文 Word 标准导入样例，验证导入后不被翻译成中文 |
+| `tests/fixtures/import/review_checklist_import/english-excel.xlsx` | 英文 Excel 标准导入样例，验证导入后不被翻译成中文 |
 
 ## 运行方式
 

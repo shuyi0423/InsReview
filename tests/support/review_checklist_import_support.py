@@ -42,6 +42,8 @@ class ReviewChecklistFixtures:
     fixtures_dir: Path
     valid_word: Path
     valid_excel: Path
+    english_word: Path
+    english_excel: Path
     valid_old_word: Path
     valid_old_excel: Path
     invalid_type: Path
@@ -108,6 +110,8 @@ def load_review_checklist_fixtures(
         fixtures_dir=import_config.fixtures_dir,
         valid_word=import_config.fixtures_dir / "valid-word.docx",
         valid_excel=import_config.fixtures_dir / "valid-excel.xlsx",
+        english_word=import_config.fixtures_dir / "english-word.docx",
+        english_excel=import_config.fixtures_dir / "english-excel.xlsx",
         valid_old_word=import_config.fixtures_dir / "valid-old-word.doc",
         valid_old_excel=import_config.fixtures_dir / "valid-old-excel.xls",
         invalid_type=import_config.fixtures_dir / "invalid-type.txt",
@@ -127,6 +131,8 @@ def load_review_checklist_fixtures(
     for path in (
         fixtures.valid_word,
         fixtures.valid_excel,
+        fixtures.english_word,
+        fixtures.english_excel,
         fixtures.valid_old_word,
         fixtures.valid_old_excel,
         fixtures.invalid_type,

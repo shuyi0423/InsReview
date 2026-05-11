@@ -79,6 +79,16 @@
 3. 准备对应环境的登录态文件
 4. 再执行业务用例
 
+如果本机 Chrome 已经登录过对应环境，可优先从 Chrome Profile 刷新登录态，避免反复扫码：
+
+```bash
+./scripts/refresh_auth_from_chrome.py test --chrome-profile Default
+./scripts/refresh_auth_from_chrome.py dev --chrome-profile Default
+./scripts/refresh_auth_from_chrome.py online --chrome-profile Default
+```
+
+脚本会读取本机 Chrome 的 `zs_session`，并写入当前 profile 对应的 `.auth/*.json`。`.auth/` 已加入 `.gitignore`，不要提交生成后的登录态文件。
+
 当前已提供：
 
 - `env/dev.env`

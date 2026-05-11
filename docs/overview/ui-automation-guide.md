@@ -70,6 +70,16 @@
 ./scripts/bootstrap.sh
 ```
 
+从本机 Chrome Profile 刷新登录态，减少人工扫码：
+
+```bash
+./scripts/refresh_auth_from_chrome.py test --chrome-profile Default
+./scripts/refresh_auth_from_chrome.py dev --chrome-profile Default
+./scripts/refresh_auth_from_chrome.py online --chrome-profile Default
+```
+
+如果企业账号在其他 Chrome Profile 中，把 `Default` 改成 `Profile 1`、`Profile 2` 等实际目录名。
+
 执行导入清单：
 
 ```bash

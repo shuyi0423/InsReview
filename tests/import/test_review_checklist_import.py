@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 import pytest
 from playwright.sync_api import expect, sync_playwright
 
@@ -43,9 +45,28 @@ FAILED_TERMINAL_CASES = [
     ("scan_only_word", "scan_only_word"),
 ]
 
+ENGLISH_LANGUAGE_CASES = [
+    ("english_docx", "english_word"),
+    ("english_xlsx", "english_excel"),
+]
+
 
 def file_stem(file_path) -> str:
     return file_path.name.rsplit(".", 1)[0]
+
+
+def assert_english_draft_preserves_language(draft: dict, label: str) -> None:
+    selected_rules = draft.get("selectedRules") or []
+    assert selected_rules, f"{label} 草稿未返回规则: {draft}"
+
+    rule_text = " ".join(
+        str(rule.get(key) or "")
+        for rule in selected_rules
+        for key in ("name", "content", "riskTips")
+    )
+    assert not re.search(r"[\u4e00-\u9fff]", rule_text), f"{label} 草稿规则被中文化: {rule_text}"
+    assert "English" in rule_text, f"{label} 草稿缺少 English 语义: {rule_text}"
+    assert "confidential" in rule_text.lower(), f"{label} 草稿缺少 confidentiality 语义: {rule_text}"
 
 
 def upload_create_and_poll(api, import_config, file_path):
@@ -168,6 +189,34 @@ def test_review_checklist_import_valid_files_can_finalize_and_cleanup(
                 delete_review_checklist(api, import_config, checklist_id)
             if task_id:
                 dismiss_review_checklist_import_task(api, import_config, task_id)
+            api.dispose()
+
+
+@pytest.mark.parametrize(
+    ("label", "fixture_attr"),
+    ENGLISH_LANGUAGE_CASES,
+    ids=[case[0] for case in ENGLISH_LANGUAGE_CASES],
+)
+def test_review_checklist_import_english_files_keep_draft_language(
+    label: str,
+    fixture_attr: str,
+) -> None:
+    review_config = load_review_config()
+    import_config = load_review_checklist_import_config(review_config)
+    fixtures = load_review_checklist_fixtures(import_config)
+    file_path = getattr(fixtures, fixture_attr)
+
+    with sync_playwright() as playwright:
+        api = create_review_checklist_api_context(playwright, review_config)
+        task_id = ""
+        try:
+            task_id, task, _, _ = upload_create_and_poll(api, import_config, file_path)
+            assert task.get("status") == "DRAFT_READY", f"{label} 导入任务状态异常: {task}"
+
+            draft = get_review_checklist_draft(api, import_config, task_id)
+            assert_english_draft_preserves_language(draft, label)
+        finally:
+            cleanup_task(api, import_config, task_id)
             api.dispose()
 
 
